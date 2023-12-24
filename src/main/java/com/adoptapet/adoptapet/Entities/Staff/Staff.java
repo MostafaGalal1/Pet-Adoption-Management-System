@@ -1,9 +1,11 @@
 package com.adoptapet.adoptapet.Entities.Staff;
 
+import com.adoptapet.adoptapet.Dtos.StaffDto;
 import com.adoptapet.adoptapet.Entities.Account.Account;
 import com.adoptapet.adoptapet.Entities.Shelter;
 import jakarta.persistence.*;
 import lombok.*;
+import org.modelmapper.ModelMapper;
 
 @Entity
 @Table(name = "staff")
@@ -34,4 +36,10 @@ public class Staff {
     @ManyToOne
     @JoinColumn(name = "shelterId")
     private Shelter shelter;
+
+    private static ModelMapper modelMapper = new ModelMapper();
+
+    public static Staff convert(StaffDto staffDto) {
+        return modelMapper.map(staffDto, Staff.class);
+    }
 }

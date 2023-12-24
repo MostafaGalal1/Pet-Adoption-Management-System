@@ -11,7 +11,6 @@ import java.io.Serializable;
 @Value
 @Builder
 public class AdopterDto implements Serializable {
-    int id;
     String name;
     String contact;
     AccountDto account;

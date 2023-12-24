@@ -10,7 +10,6 @@ import java.io.Serializable;
  */
 @Value
 public class StaffDto implements Serializable {
-    int id;
     String name;
     String contact;
     JobTitle jobTitle;

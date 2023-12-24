@@ -1,7 +1,10 @@
 package com.adoptapet.adoptapet.Entities.Account;
 
+import com.adoptapet.adoptapet.Dtos.AccountDto;
+import com.adoptapet.adoptapet.Dtos.SignUpDto;
 import jakarta.persistence.*;
 import lombok.*;
+import org.modelmapper.ModelMapper;
 
 @Entity
 @Table(name = "account")
@@ -24,4 +27,14 @@ public class Account {
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    private static ModelMapper modelMapper = new ModelMapper();
+
+    public static Account convert(AccountDto accountDto) {
+        return modelMapper.map(accountDto, Account.class);
+    }
+
+    public static Account convert(SignUpDto signUpDto) {
+        return modelMapper.map(signUpDto, Account.class);
+    }
 }
