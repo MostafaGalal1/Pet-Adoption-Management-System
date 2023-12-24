@@ -35,17 +35,15 @@ public class AccountService {
     }
 
     public ResponseEntity<String> signup (SignUpDto signUpDto) {
-        System.out.println("signup");
-        if (signUpDto.getRole()== Role.ADMIN) {
-            System.out.println("No");
+        if (signUpDto.getRole() == Role.ADMIN) {
             return new ResponseEntity<>("can not register as an admin", HttpStatus.FORBIDDEN);
         }
         if (accountRepository.existsByEmail(signUpDto.getEmail())) {
-
             return new ResponseEntity<>("Email already exists", HttpStatus.CONFLICT);
         }
         Account account = Account.convert(signUpDto);
         account.setPassword(encoder.encode(account.getPassword()));
+        accountRepository.save(account);
         return new ResponseEntity<>("sign up completed", HttpStatus.OK);
     }
 
