@@ -46,7 +46,7 @@ public class AccountService {
         }
         Account account = Account.convert(signUpDto);
         account.setPassword(encoder.encode(account.getPassword()));
-        return new ResponseEntity<>("Account saved", HttpStatus.OK);
+        return new ResponseEntity<>("sign up completed", HttpStatus.OK);
     }
 
 
