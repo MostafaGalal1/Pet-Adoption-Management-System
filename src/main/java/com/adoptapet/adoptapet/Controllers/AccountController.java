@@ -1,15 +1,14 @@
 package com.adoptapet.adoptapet.Controllers;
 
 
-import com.adoptapet.adoptapet.Dtos.AccountDto;
 import com.adoptapet.adoptapet.Dtos.SignUpDto;
 import com.adoptapet.adoptapet.Services.AccountService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/account/")
-@CrossOrigin("http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:8080")
 @RestController
 public class AccountController {
 
@@ -19,9 +18,10 @@ public class AccountController {
         this.accountService = accountService;
     }
 
-    @PostMapping("test")
-    public void test() {
-        System.out.println("try");
+    @GetMapping("test")
+    public ResponseEntity<String> test() {
+        System.out.println("test");
+        return new ResponseEntity<>("test", HttpStatus.OK);
     }
 
     @PostMapping("signup")
@@ -31,7 +31,7 @@ public class AccountController {
     }
 
     @GetMapping("login")
-    public ResponseEntity<Object> login(@RequestParam String email ,@RequestParam String password) {
+    public ResponseEntity<Object> login(@RequestParam String email, @RequestParam String password) {
         return accountService.login(email, password);
     }
 }
