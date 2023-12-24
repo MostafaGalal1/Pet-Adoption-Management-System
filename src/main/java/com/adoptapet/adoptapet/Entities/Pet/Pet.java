@@ -37,11 +37,11 @@ public class Pet {
 
     @Column(name = "healthStatus")
     @Enumerated(EnumType.STRING)
-    private String healthStatus;
+    private HealthStatus healthStatus;
 
     @Column(name = "behaviour")
     @Enumerated(EnumType.STRING)
-    private String behaviour;
+    private Behaviour behaviour;
 
     @Column(name = "description")
     private String description;
@@ -54,9 +54,6 @@ public class Pet {
 
     @Column(name = "homeTrained")
     private boolean homeTrained;
-
-    @Column(name = "shelterId")
-    private int shelterId;
 
     @ManyToOne
     @JoinColumn(name = "shelterId")

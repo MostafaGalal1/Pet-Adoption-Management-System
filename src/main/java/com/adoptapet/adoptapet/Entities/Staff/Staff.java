@@ -26,9 +26,6 @@ public class Staff {
     @Enumerated(EnumType.STRING)
     private JobTitle jobTitle;
 
-    @Column(name = "shelterId")
-    private int shelterId;
-
     @MapsId
     @OneToOne
     @JoinColumn(name = "id")

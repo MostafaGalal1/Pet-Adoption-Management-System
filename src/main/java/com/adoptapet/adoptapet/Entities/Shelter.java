@@ -27,9 +27,6 @@ public class Shelter {
     @Column(name = "location")
     private String location;
 
-    @Column(name = "managerId")
-    private int managerId;
-
     @OneToOne
     @JoinColumn(name = "managerId")
     private Staff manager;
