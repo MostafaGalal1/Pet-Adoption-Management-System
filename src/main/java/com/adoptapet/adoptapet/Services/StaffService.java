@@ -5,9 +5,9 @@ import com.adoptapet.adoptapet.Mappers.StaffMapper;
 import com.adoptapet.adoptapet.Repositories.StaffRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 @Service
 public class StaffService {
@@ -22,20 +22,26 @@ public class StaffService {
         this.staffMapper = staffMapper;
     }
 
+    public List<StaffDto> getAllStaffs(int shelterId) {
+        return staffMapper.toDtoList(staffRepository.findAllByShelterId(shelterId));
+    }
+
     public Staff get(Integer id) {
         return staffRepository.findById(id).orElse(null);
     }
 
-    public void add(Staff staff) {
+    public void add(StaffDto staffDto) {
+        staffRepository.save(staffMapper.toEntity(staffDto));
+    }
+
+    public void update(StaffDto staffDto) {
+        Staff staff = staffRepository.findById(staffDto.getId()).orElse(null);
+        staffMapper.partialUpdate(staffDto, staff);
         staffRepository.save(staff);
     }
 
-    public void update(Staff staff) {
-        staffRepository.save(staff);
-    }
-
-    public void delete(Staff staff) {
-        staffRepository.delete(staff);
+    public void delete(int staffId) {
+        staffRepository.deleteById(staffId);
     }
 
     public void deleteAll() {

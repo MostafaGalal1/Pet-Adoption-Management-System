@@ -2,12 +2,15 @@ package com.adoptapet.adoptapet.Services;
 
 import com.adoptapet.adoptapet.Dtos.AdopterDto;
 import com.adoptapet.adoptapet.Entities.Adopter;
+import com.adoptapet.adoptapet.Entities.Pet.Pet;
 import com.adoptapet.adoptapet.Mappers.AdopterMapper;
 import com.adoptapet.adoptapet.Repositories.AdopterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class AdopterService {
@@ -22,6 +25,15 @@ public class AdopterService {
         this.adopterMapper = adopterMapper;
     }
 
+    public List<AdopterDto> getAllAdopters() {
+        return adopterMapper.toDtoList(adopterRepository.findAll());
+    }
+
+    public AdopterDto getAdopter(int adopterId) {
+        Adopter adopter = adopterRepository.findById(adopterId).orElse(null);
+        return adopterMapper.toDto(adopter);
+    }
+
     public ResponseEntity<String> add(AdopterDto adopterDto) {
         Adopter adopter = adopterMapper.toEntity(adopterDto);
         if (!adopterRepository.existsByAccount(adopter.getAccount())) {
@@ -29,5 +41,15 @@ public class AdopterService {
         }
         adopterRepository.save(adopter);
         return new ResponseEntity<>("Adopter added", HttpStatus.ACCEPTED);
+    }
+
+    public void updateAdopter(AdopterDto adopterDto) {
+        Adopter adopter = adopterRepository.findById(adopterDto.getId()).orElse(null);
+        adopterMapper.partialUpdate(adopterDto, adopter);
+        adopterRepository.save(adopter);
+    }
+
+    public void deleteAdopter(int adopterId) {
+        adopterRepository.deleteById(adopterId);
     }
 }

@@ -21,6 +21,7 @@ public class PetDto implements Serializable {
     HealthStatus healthStatus;
     Behaviour behaviour;
     String description;
+    boolean adopted;
     boolean vacinated;
     boolean castrated;
     boolean homeTrained;

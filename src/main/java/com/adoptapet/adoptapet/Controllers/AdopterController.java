@@ -1,35 +1,47 @@
 package com.adoptapet.adoptapet.Controllers;
 import com.adoptapet.adoptapet.Dtos.AdopterDto;
+import com.adoptapet.adoptapet.Services.AdopterService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/adopters")
 public class AdopterController {
+    private final AdopterService adopterService;
+
+    @Autowired
+    public AdopterController(AdopterService adopterService) {
+        this.adopterService = adopterService;
+    }
 
     @GetMapping
-    public ResponseEntity<String> getAllAdopters() {
-        return null;
+    public ResponseEntity<List<AdopterDto>> getAllAdopters() {
+        adopterService.getAllAdopters();
+        return ResponseEntity.ok(adopterService.getAllAdopters());
     }
 
     @GetMapping("/{adopterId}")
-    public ResponseEntity<String> getAdopter(@PathVariable int adopterId) {
-        return null;
+    public ResponseEntity<AdopterDto> getAdopter(@PathVariable int adopterId) {
+        return ResponseEntity.ok(adopterService.getAdopter(adopterId));
     }
 
     @PostMapping
     public ResponseEntity<String> addAdopter(@RequestBody AdopterDto adopterDto) {
-        return null;
+        return adopterService.add(adopterDto);
     }
 
     @PutMapping
     public ResponseEntity<String> updateAdopter(@RequestBody AdopterDto adopterDto) {
-        return null;
+        adopterService.updateAdopter(adopterDto);
+        return ResponseEntity.ok("Adopter updated");
     }
 
     @DeleteMapping("/{adopterId}")
     public ResponseEntity<String> deleteAdopter(@PathVariable int adopterId) {
-        return null;
+        adopterService.deleteAdopter(adopterId);
+        return ResponseEntity.ok("Adopter deleted");
     }
 }
-

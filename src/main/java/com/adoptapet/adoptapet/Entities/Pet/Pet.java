@@ -46,6 +46,9 @@ public class Pet {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "adopted")
+    private boolean adopted;
+
     @Column(name = "vacinated")
     private boolean vacinated;
 

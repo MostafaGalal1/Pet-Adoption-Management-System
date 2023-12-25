@@ -1,9 +1,11 @@
 package com.adoptapet.adoptapet.Controllers;
 
-import com.adoptapet.adoptapet.Dtos.AdopterDto;
+import com.adoptapet.adoptapet.Dtos.PetDto;
 import com.adoptapet.adoptapet.Services.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
 @RequestMapping("/pets")
@@ -16,22 +18,30 @@ public class PetController {
     }
 
     @GetMapping()
-    public void getAllPets() {
+    public ResponseEntity<List<PetDto>> getAllPets() {
+        return ResponseEntity.ok(petService.getAllPets());
     }
 
     @GetMapping("/{petId}")
-    public void getPet(@PathVariable int petId) {
+    public ResponseEntity<PetDto> getPet(@PathVariable int petId) {
+        return ResponseEntity.ok(petService.getPet(petId));
     }
 
     @PostMapping
-    public void addPet(@RequestBody AdopterDto AdopterDto) {
+    public ResponseEntity<String> addPet(@RequestBody PetDto petDto) {
+        petService.addPet(petDto);
+        return ResponseEntity.ok("Pet added");
     }
 
     @PutMapping
-    public void updatePet(@RequestBody AdopterDto AdopterDto) {
+    public ResponseEntity<String> updatePet(@RequestBody PetDto petDto) {
+        petService.updatePet(petDto);
+        return ResponseEntity.ok("Pet updated");
     }
 
     @DeleteMapping("/{petId}")
-    public void deletePet(@PathVariable int petId) {
+    public ResponseEntity<String> deletePet(@PathVariable int petId) {
+        petService.deletePet(petId);
+        return ResponseEntity.ok("Pet deleted");
     }
 }
