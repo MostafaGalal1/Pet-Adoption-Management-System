@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/account/")
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class AccountController {
 
@@ -27,11 +28,13 @@ public class AccountController {
 
     @PostMapping("signup")
     public ResponseEntity<String> signup(@RequestBody SignUpDto signUpDto) {
+        System.out.println("signup");
         return accountService.signup(signUpDto);
     }
 
     @GetMapping("login")
     public ResponseEntity<Object> login(@RequestParam String email, @RequestParam String password) {
+        System.out.println("login");
         return accountService.login(email, password);
     }
 }
