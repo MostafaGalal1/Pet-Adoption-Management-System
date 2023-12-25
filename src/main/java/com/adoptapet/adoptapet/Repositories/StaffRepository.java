@@ -3,8 +3,10 @@ package com.adoptapet.adoptapet.Repositories;
 import com.adoptapet.adoptapet.Entities.Account.Account;
 import com.adoptapet.adoptapet.Entities.Staff.Staff;
 import org.springframework.data.jpa.repository.JpaRepository;
-import java.util.List;
+import org.springframework.stereotype.Repository;
 
+import java.util.List;
+@Repository
 public interface StaffRepository extends JpaRepository<Staff, Integer> {
 
     boolean existsByAccount(Account account);

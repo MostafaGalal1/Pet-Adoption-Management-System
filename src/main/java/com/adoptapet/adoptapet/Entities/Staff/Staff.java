@@ -31,9 +31,6 @@ public class Staff {
     @JoinColumn(name = "id")
     private Account account;
 
-    @Column(name = "shelterId")
-    private int shelterId;
-
     @ManyToOne
     @JoinColumn(name = "shelterId")
     private Shelter shelter;

@@ -3,10 +3,13 @@ package com.adoptapet.adoptapet.Repositories;
 import com.adoptapet.adoptapet.Entities.Pet.Pet;
 import com.adoptapet.adoptapet.Entities.Shelter;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface PetRepository extends JpaRepository<Pet, Integer> {
+@Repository
+public interface PetRepository extends JpaRepository<Pet, Integer>, JpaSpecificationExecutor<Pet> {
 
     List<Pet> getPetsByBreedAndAdopted(String breed, boolean adopted);
 

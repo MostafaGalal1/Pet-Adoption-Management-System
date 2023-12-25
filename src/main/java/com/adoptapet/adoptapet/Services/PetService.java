@@ -7,6 +7,10 @@ import com.adoptapet.adoptapet.Mappers.PetMapper;
 import com.adoptapet.adoptapet.Repositories.PetRepository;
 import com.adoptapet.adoptapet.Repositories.ShelterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -71,5 +75,10 @@ public class PetService {
             }
         }
         return petDtoList;
+    }
+
+    public Page<Pet> findAllPets(Specification<Pet> specification, int pageCount) {
+        Pageable pageable = PageRequest.of(pageCount, 10);
+        return petRepository.findAll(specification, pageable);
     }
 }
