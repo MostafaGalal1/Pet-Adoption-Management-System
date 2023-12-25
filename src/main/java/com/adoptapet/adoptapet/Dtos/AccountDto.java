@@ -12,6 +12,8 @@ import java.io.Serializable;
 @Value
 @Builder
 public class AccountDto implements Serializable {
+    int id;
     String email;
+    String password;
     Role role;
 }

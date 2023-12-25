@@ -1,9 +1,10 @@
 package com.adoptapet.adoptapet.Services;
 
 
-import com.adoptapet.adoptapet.Dtos.SignUpDto;
+import com.adoptapet.adoptapet.Dtos.AccountDto;
 import com.adoptapet.adoptapet.Entities.Account.Account;
 import com.adoptapet.adoptapet.Entities.Account.Role;
+import com.adoptapet.adoptapet.Mappers.AccountMapper;
 import com.adoptapet.adoptapet.Repositories.AccountRepository;
 import com.adoptapet.adoptapet.Repositories.AdminRepository;
 import com.adoptapet.adoptapet.Repositories.AdopterRepository;
@@ -20,28 +21,30 @@ import org.springframework.stereotype.Service;
 public class AccountService {
 
     private final AccountRepository accountRepository;
+    private final AccountMapper accountMapper;
     private final StaffRepository staffRepository;
     private final AdminRepository adminRepository;
     private final AdopterRepository adopterRepository;
     private final PasswordEncoder encoder;
 
     @Autowired
-    public AccountService(AccountRepository accountRepository, StaffRepository staffRepository, AdopterRepository adopterRepository, AdminRepository adminRepository) {
+    public AccountService(AccountRepository accountRepository, StaffRepository staffRepository, AdopterRepository adopterRepository, AdminRepository adminRepository, AccountMapper accountMapper) {
         this.accountRepository = accountRepository;
         this.encoder = new BCryptPasswordEncoder();
         this.staffRepository = staffRepository;
         this.adopterRepository = adopterRepository;
         this.adminRepository = adminRepository;
+        this.accountMapper = accountMapper;
     }
 
-    public ResponseEntity<String> signup (SignUpDto signUpDto) {
+    public ResponseEntity<String> signup (AccountDto signUpDto) {
         if (signUpDto.getRole() == Role.ADMIN) {
             return new ResponseEntity<>("can not register as an admin", HttpStatus.FORBIDDEN);
         }
         if (accountRepository.existsByEmail(signUpDto.getEmail())) {
             return new ResponseEntity<>("Email already exists", HttpStatus.CONFLICT);
         }
-        Account account = Account.convert(signUpDto);
+        Account account = accountMapper.toEntity(signUpDto);
         account.setPassword(encoder.encode(account.getPassword()));
         accountRepository.save(account);
         return new ResponseEntity<>("sign up completed", HttpStatus.OK);
