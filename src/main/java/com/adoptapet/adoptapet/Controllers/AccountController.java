@@ -1,7 +1,7 @@
 package com.adoptapet.adoptapet.Controllers;
 
 
-import com.adoptapet.adoptapet.Dtos.SignUpDto;
+import com.adoptapet.adoptapet.Dtos.AccountDto;
 import com.adoptapet.adoptapet.Services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,13 +35,13 @@ public class AccountController {
     }
 
     @PostMapping
-    public ResponseEntity<String> addAccount(@RequestBody SignUpDto signUpDto) {
+    public ResponseEntity<String> addAccount(@RequestBody AccountDto signUpDto) {
         System.out.println("addAccount");
         return new ResponseEntity<>("addAccount", HttpStatus.OK);
     }
 
     @PutMapping
-    public ResponseEntity<String> updateAccount(@RequestBody SignUpDto signUpDto) {
+    public ResponseEntity<String> updateAccount(@RequestBody AccountDto signUpDto) {
         System.out.println("updateAccount");
         return new ResponseEntity<>("updateAccount", HttpStatus.OK);
     }
@@ -59,7 +59,7 @@ public class AccountController {
 //    }
 
     @PostMapping("signup")
-    public ResponseEntity<String> signup(@RequestBody SignUpDto signUpDto) {
+    public ResponseEntity<String> signup(@RequestBody AccountDto signUpDto) {
         System.out.println("signup");
         return accountService.signup(signUpDto);
     }

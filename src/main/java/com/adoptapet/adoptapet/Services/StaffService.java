@@ -1,6 +1,7 @@
 package com.adoptapet.adoptapet.Services;
 import com.adoptapet.adoptapet.Dtos.StaffDto;
 import com.adoptapet.adoptapet.Entities.Staff.Staff;
+import com.adoptapet.adoptapet.Mappers.StaffMapper;
 import com.adoptapet.adoptapet.Repositories.StaffRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,9 +14,12 @@ public class StaffService {
 
     private final StaffRepository staffRepository;
 
+    private final StaffMapper staffMapper;
+
     @Autowired
-    public StaffService(StaffRepository staffRepository) {
+    public StaffService(StaffRepository staffRepository, StaffMapper staffMapper) {
         this.staffRepository = staffRepository;
+        this.staffMapper = staffMapper;
     }
 
     public Staff get(Integer id) {
@@ -43,11 +47,11 @@ public class StaffService {
     }
 
     public ResponseEntity<String > getStaff(StaffDto staffDto) {
-        Staff staff = Staff.convert( staffDto );
+        Staff staff = staffMapper.toEntity(staffDto);
         if (!staffRepository.existsByAccount(staff.getAccount())) {
             return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
         }
-        staffRepository.save( staff );
+        staffRepository.save(staff);
         return new ResponseEntity<>( "Staff saved", HttpStatus.ACCEPTED );
     }
 }
