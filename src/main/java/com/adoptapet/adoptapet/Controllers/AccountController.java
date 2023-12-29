@@ -2,7 +2,7 @@ package com.adoptapet.adoptapet.Controllers;
 
 
 import com.adoptapet.adoptapet.Dtos.AccountDto;
-import com.adoptapet.adoptapet.Services.BackupAndRecoveryServices.BackupAndRecovery;
+import com.adoptapet.adoptapet.Dtos.SignUpDto;
 import com.adoptapet.adoptapet.Services.EntityServices.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -53,8 +53,8 @@ public class AccountController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody AccountDto accountDto) {
-        accountService.register(accountDto);
+    public ResponseEntity<String> register(@RequestBody SignUpDto signUpDto) {
+        accountService.register(signUpDto);
         return ResponseEntity.ok("User registered successfully");
     }
 
