@@ -2,14 +2,11 @@ package com.adoptapet.adoptapet.Controllers;
 import com.adoptapet.adoptapet.Dtos.AdoptionApplicationDto;
 import com.adoptapet.adoptapet.Entities.AdoptionApplication.AdoptionApplication;
 import com.adoptapet.adoptapet.Entities.AdoptionApplication.AdoptionApplicationId;
-import com.adoptapet.adoptapet.Entities.AdoptionApplication.Status;
-import com.adoptapet.adoptapet.Services.AdoptionApplicationService;
+import com.adoptapet.adoptapet.Services.EntityServices.AdoptionApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import static com.adoptapet.adoptapet.Entities.AdoptionApplication.Status.*;
-
 import static com.adoptapet.adoptapet.Entities.AdoptionApplication.Status.*;
 
 @RestController
@@ -27,24 +24,17 @@ public class AdoptionApplicationController {
 //        return ResponseEntity.ok(adoptionApplicationService.getAllAdoptionApplications());
 //    }
 
-<<<<<<< Updated upstream
-//    @GetMapping()
-//    public ResponseEntity<List<AdoptionApplicationDto>> getAllAdoptionApplications() {
-//        System.out.println("lllll");
-//        return ResponseEntity.ok(adoptionApplicationService.getAll());
-//    }
-
-    @GetMapping("/getAll")
-    public ResponseEntity<List<AdoptionApplication>> getAllAdoptionApplications() { // TODO be modified
-        System.out.println("lllll");
-        List<AdoptionApplication> list = adoptionApplicationService.getAll();
-        return ResponseEntity.ok(list);
-=======
     @GetMapping("/getAll")
     public ResponseEntity<List<AdoptionApplicationDto>> getAllAdoptionApplications() {
         List<AdoptionApplicationDto> applicationDtos = adoptionApplicationService.getAll();
         return ResponseEntity.ok(applicationDtos);
->>>>>>> Stashed changes
+    }
+
+    @GetMapping("/getAll/{shelterId}")
+    public ResponseEntity<List<AdoptionApplicationDto>> getAllAdoptionApplications(@PathVariable int shelterId) {
+        System.out.println(shelterId);
+        List<AdoptionApplicationDto> applicationDtos = adoptionApplicationService.getAll(shelterId);
+        return ResponseEntity.ok(applicationDtos);
     }
 
     @PostMapping("/add")
@@ -53,32 +43,22 @@ public class AdoptionApplicationController {
         return ResponseEntity.ok("Adoption application added");
     }
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<String> deleteAdoptionApplication(@RequestBody AdoptionApplicationId applicationId) {
-        adoptionApplicationService.delete(applicationId);
+    @DeleteMapping("/delete/{petId}/{adopterId}")
+    public ResponseEntity<String> deleteAdoptionApplication(@PathVariable int petId, @PathVariable int adopterId) {
+        adoptionApplicationService.delete(petId, adopterId);
         return ResponseEntity.ok("Adoption application deleted");
     }
 
-    @PutMapping("/accept")
-    public ResponseEntity<?> acceptApplication(@RequestBody AdoptionApplicationId applicationId) {
-        adoptionApplicationService.updateStatus(applicationId, APPROVED);
+    @PutMapping("/accept/{petId}/{adopterId}")
+    public ResponseEntity<?> acceptApplication(@PathVariable int petId, @PathVariable int adopterId) {
+        adoptionApplicationService.updateStatus(petId, adopterId, APPROVED);
         return ResponseEntity.ok("Adoption Application Accepted");
     }
 
-    @PutMapping("/decline")
-    public ResponseEntity<?> declineApplication(@RequestBody AdoptionApplicationId applicationId) {
-        adoptionApplicationService.updateStatus(applicationId, REJECTED);
+    @PutMapping("/decline/{petId}/{adopterId}")
+    public ResponseEntity<?> declineApplication(@PathVariable int petId, @PathVariable int adopterId) {
+        adoptionApplicationService.updateStatus(petId, adopterId, REJECTED);
         return ResponseEntity.ok("Adoption Application Rejected");
     }
 
-<<<<<<< Updated upstream
-
-
-
-=======
-    @GetMapping("/images/{petId}")
-    public ResponseEntity<?> getPetImages(@PathVariable int petId) {
-        return ResponseEntity.ok(adoptionApplicationService.getImages(petId));
-    }
->>>>>>> Stashed changes
 }

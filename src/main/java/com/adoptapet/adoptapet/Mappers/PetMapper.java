@@ -12,7 +12,7 @@ public interface PetMapper {
 
     PetDto toDto(Pet pet);
 
-    List<PetDto> toDtoList(List<Pet> staffList);
+    List<PetDto> toDtoList(List<Pet> petList);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     Pet partialUpdate(PetDto petDto, @MappingTarget Pet pet);

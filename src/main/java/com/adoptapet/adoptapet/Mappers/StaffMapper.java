@@ -1,13 +1,16 @@
 package com.adoptapet.adoptapet.Mappers;
 
+import com.adoptapet.adoptapet.Dtos.SignUpDto;
 import com.adoptapet.adoptapet.Dtos.StaffDto;
 import com.adoptapet.adoptapet.Entities.Staff.Staff;
 import org.mapstruct.*;
+
 import java.util.List;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = "spring")
 public interface StaffMapper {
     Staff toEntity(StaffDto staffDto);
+    Staff toEntity(SignUpDto signUpDto);
 
     StaffDto toDto(Staff staff);
 

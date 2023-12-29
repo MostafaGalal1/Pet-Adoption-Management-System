@@ -1,12 +1,14 @@
 package com.adoptapet.adoptapet.Entities.Pet;
 
+import com.adoptapet.adoptapet.Entities.Document.Document;
 import com.adoptapet.adoptapet.Entities.Gender;
+import com.adoptapet.adoptapet.Entities.Image.Image;
 import com.adoptapet.adoptapet.Entities.Shelter;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Pet")
@@ -56,9 +58,47 @@ public class Pet {
     private boolean castrated;
 
     @Column(name = "houseTrained")
-    private boolean homeTrained;
+    private boolean houseTrained;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "shelterId")
     private Shelter shelter;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "petId")
+    @ToString.Exclude
+    private List<Document> documents;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "petId")
+    @ToString.Exclude
+    private List<Image> images;
+
+    void addDocument(Document document) {
+        if (documents == null)
+            documents = new ArrayList<>();
+        documents.add(document);
+        document.setPet(this);
+    }
+
+    void addImage(Image image) {
+        if (images == null)
+            images = new ArrayList<>();
+        images.add(image);
+        image.setPet(this);
+    }
+
+    void removeDocument(Document document) {
+        if (documents != null) {
+            documents.remove(document);
+            document.setPet(null);
+        }
+    }
+
+    void removeImage(Image image) {
+        if (images != null) {
+            images.remove(image);
+            image.setPet(null);
+        }
+    }
 }

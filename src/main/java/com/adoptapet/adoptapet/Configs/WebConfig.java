@@ -1,4 +1,4 @@
-package com.adoptapet.adoptapet.Config;
+package com.adoptapet.adoptapet.Configs;
 
 import org.springframework.boot.web.servlet.*;
 import org.springframework.context.annotation.*;
@@ -38,5 +38,4 @@ public class WebConfig {
         bean.setOrder(-102);
         return bean;
     }
-
 }

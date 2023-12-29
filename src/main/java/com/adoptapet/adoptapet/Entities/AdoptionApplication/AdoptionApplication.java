@@ -13,23 +13,20 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class AdoptionApplication {
-    @Id
-    @Column(name = "petId")
-    private int petId;
-
-    @Id
-    @Column(name = "adopterId")
-    private int adopterId;
-
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @ManyToOne
+    @Id
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "petId")
     private Pet pet;
 
-    @ManyToOne
+    @Id
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "adopterId")
     private Adopter adopter;
+
+    @Column(name = "shelterId")
+    private int shelterId;
 }

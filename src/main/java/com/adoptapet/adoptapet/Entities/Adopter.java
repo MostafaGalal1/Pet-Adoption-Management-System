@@ -25,7 +25,7 @@ public class Adopter {
     private String contact;
 
     @MapsId
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id")
     private Account account;
 }

@@ -1,7 +1,7 @@
 package com.adoptapet.adoptapet.Controllers;
 
 import com.adoptapet.adoptapet.Dtos.PetDto;
-import com.adoptapet.adoptapet.Services.PetService;
+import com.adoptapet.adoptapet.Services.EntityServices.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,31 +17,51 @@ public class PetController {
         this.petService = petService;
     }
 
-    @GetMapping()
+    @GetMapping("/getAll")
     public ResponseEntity<List<PetDto>> getAllPets() {
         return ResponseEntity.ok(petService.getAllPets());
     }
 
-    @GetMapping("/{petId}")
+    @GetMapping("/shelter/{shelterId}")
+    public ResponseEntity<List<PetDto>> getPetsInShelter(@PathVariable int shelterId) {
+        return ResponseEntity.ok(petService.getAllPets(shelterId));
+    }
+
+    @GetMapping("/get/{petId}")
     public ResponseEntity<PetDto> getPet(@PathVariable int petId) {
         return ResponseEntity.ok(petService.getPet(petId));
     }
 
-    @PostMapping
-    public ResponseEntity<String> addPet(@RequestBody PetDto petDto) {
-        petService.addPet(petDto);
-        return ResponseEntity.ok("Pet added");
+    @PostMapping("/add")
+    public ResponseEntity<Integer> addPet(@RequestBody PetDto petDto) {
+        return ResponseEntity.ok(petService.addPet(petDto));
     }
 
-    @PutMapping
+    @PutMapping("/edit")
     public ResponseEntity<String> updatePet(@RequestBody PetDto petDto) {
         petService.updatePet(petDto);
-        return ResponseEntity.ok("Pet updated");
+        return ResponseEntity.ok("Pet updated successfully");
     }
 
-    @DeleteMapping("/{petId}")
+    @DeleteMapping("/delete/{petId}")
     public ResponseEntity<String> deletePet(@PathVariable int petId) {
         petService.deletePet(petId);
-        return ResponseEntity.ok("Pet deleted");
+        return ResponseEntity.ok("Pet deleted successfully");
+    }
+
+    @GetMapping("/filter/{criteria}/{value}")
+    public ResponseEntity<List<PetDto>> filter(@PathVariable String criteria, @PathVariable String value) {
+        return ResponseEntity.ok(petService.filterPets(criteria, value));
+    }
+
+    @GetMapping("/filter/{criteria}/{value}/{shelterId}")
+    public ResponseEntity<List<PetDto>> filter(@PathVariable String criteria, @PathVariable String value, @PathVariable int shelterId) {
+        System.out.println(criteria);
+        return ResponseEntity.ok(petService.filterPets(criteria, value, shelterId));
+    }
+
+    @GetMapping("/criteria/values/{criteria}")
+    public ResponseEntity<List<?>> getCriteriaValues(@PathVariable String criteria) {
+        return ResponseEntity.ok(petService.getValues(criteria));
     }
 }

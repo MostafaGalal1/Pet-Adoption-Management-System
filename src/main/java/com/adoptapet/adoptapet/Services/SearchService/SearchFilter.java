@@ -1,4 +1,4 @@
-package com.adoptapet.adoptapet.Services.EntitySearch;
+package com.adoptapet.adoptapet.Services.SearchService;
 
 import lombok.Builder;
 import lombok.Getter;
