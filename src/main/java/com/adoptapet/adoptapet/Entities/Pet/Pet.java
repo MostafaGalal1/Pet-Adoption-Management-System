@@ -49,13 +49,13 @@ public class Pet {
     @Column(name = "adopted")
     private boolean adopted;
 
-    @Column(name = "vacinated")
-    private boolean vacinated;
+    @Column(name = "vaccinated")
+    private boolean vaccinated;
 
     @Column(name = "castrated")
     private boolean castrated;
 
-    @Column(name = "homeTrained")
+    @Column(name = "houseTrained")
     private boolean homeTrained;
 
     @ManyToOne

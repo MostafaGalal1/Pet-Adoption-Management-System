@@ -12,6 +12,6 @@ import java.io.Serializable;
 public class AdoptionRecordDto implements Serializable {
     int petId;
     int adopterId;
-    Pet pet;
+    PetDto pet;
     AdopterDto adopter;
 }

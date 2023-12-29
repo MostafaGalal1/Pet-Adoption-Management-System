@@ -11,7 +11,7 @@ public interface AdoptionApplicationMapper {
 
     AdoptionApplicationDto toDto(AdoptionApplication adoptionApplication);
 
-    List<AdoptionApplicationDto> toDtoList(List<AdoptionApplication> staffList);
+//    List<AdoptionApplicationDto> toDtoList(List<AdoptionApplication> staffList);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     AdoptionApplication partialUpdate(AdoptionApplicationDto adoptionApplicationDto, @MappingTarget AdoptionApplication adoptionApplication);

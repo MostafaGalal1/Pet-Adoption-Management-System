@@ -31,9 +31,9 @@ public class Shelter {
     @JoinColumn(name = "managerId")
     private Staff manager;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Staff> staff;
-
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Pet> pets;
+//    @OneToMany(fetch = FetchType.LAZY)
+//    private List<Staff> staff;
+//
+//    @OneToMany(fetch = FetchType.LAZY)
+//    private List<Pet> pets;
 }
