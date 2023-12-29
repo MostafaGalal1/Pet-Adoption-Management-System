@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import static com.adoptapet.adoptapet.Entities.AdoptionApplication.Status.*;
 
 import static com.adoptapet.adoptapet.Entities.AdoptionApplication.Status.*;
 
@@ -26,6 +27,7 @@ public class AdoptionApplicationController {
 //        return ResponseEntity.ok(adoptionApplicationService.getAllAdoptionApplications());
 //    }
 
+<<<<<<< Updated upstream
 //    @GetMapping()
 //    public ResponseEntity<List<AdoptionApplicationDto>> getAllAdoptionApplications() {
 //        System.out.println("lllll");
@@ -37,6 +39,12 @@ public class AdoptionApplicationController {
         System.out.println("lllll");
         List<AdoptionApplication> list = adoptionApplicationService.getAll();
         return ResponseEntity.ok(list);
+=======
+    @GetMapping("/getAll")
+    public ResponseEntity<List<AdoptionApplicationDto>> getAllAdoptionApplications() {
+        List<AdoptionApplicationDto> applicationDtos = adoptionApplicationService.getAll();
+        return ResponseEntity.ok(applicationDtos);
+>>>>>>> Stashed changes
     }
 
     @PostMapping("/add")
@@ -63,7 +71,14 @@ public class AdoptionApplicationController {
         return ResponseEntity.ok("Adoption Application Rejected");
     }
 
+<<<<<<< Updated upstream
 
 
 
+=======
+    @GetMapping("/images/{petId}")
+    public ResponseEntity<?> getPetImages(@PathVariable int petId) {
+        return ResponseEntity.ok(adoptionApplicationService.getImages(petId));
+    }
+>>>>>>> Stashed changes
 }
