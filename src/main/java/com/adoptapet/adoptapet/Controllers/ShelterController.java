@@ -29,13 +29,13 @@ public class ShelterController {
     }
 
     @PostMapping
-    public ResponseEntity<String> addShelter(ShelterDto shelterDto) {
+    public ResponseEntity<String> addShelter(@RequestBody ShelterDto shelterDto) {
         shelterService.addShelter(shelterDto);
         return ResponseEntity.ok("Shelter added successfully");
     }
 
     @PutMapping
-    public ResponseEntity<String> updateShelter(ShelterDto shelterDto) {
+    public ResponseEntity<String> updateShelter(@RequestBody ShelterDto shelterDto) {
         shelterService.updateShelter(shelterDto);
         return ResponseEntity.ok("Shelter updated successfully");
     }
