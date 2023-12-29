@@ -3,6 +3,7 @@ package com.adoptapet.adoptapet.Controllers;
 
 import com.adoptapet.adoptapet.Dtos.AdminDto;
 import com.adoptapet.adoptapet.Services.EntityServices.AdminService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,7 @@ import java.util.List;
 public class AdminController {
     private final AdminService adminService;
 
+    @Autowired
     public AdminController(AdminService adminService) {
         this.adminService = adminService;
     }
