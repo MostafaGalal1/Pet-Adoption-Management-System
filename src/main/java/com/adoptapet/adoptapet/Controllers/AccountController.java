@@ -58,8 +58,7 @@ public class AccountController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody AccountDto accountDto) {
-        accountService.login(accountDto);
-        return ResponseEntity.ok("User logged in successfully");
+    public ResponseEntity<Integer> login(@RequestBody AccountDto accountDto) {
+        return ResponseEntity.ok(accountService.login(accountDto));
     }
 }

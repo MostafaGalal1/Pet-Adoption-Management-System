@@ -72,12 +72,13 @@ public class AccountService {
         accountRepository.save(account);
     }
 
-    public void login(AccountDto accountDto) {
+    public int login(AccountDto accountDto) {
         Account account = accountMapper.toEntity(accountDto);
-        if (accountRepository.findById(account.getId()).isEmpty())
+        if (accountRepository.findByEmail(account.getEmail()).isEmpty())
             throw new AccountNotFoundException();
-        Account existingAccount = accountRepository.findByEmail(account.getEmail());
+        Account existingAccount = accountRepository.findByEmail(account.getEmail()).get();
         if (!encoder.matches(account.getPassword(),existingAccount.getPassword()))
             throw new AccountInvalidPasswordException();
+        return existingAccount.getId();
     }
 }
