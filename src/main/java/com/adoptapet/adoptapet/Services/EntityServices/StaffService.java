@@ -50,9 +50,10 @@ public class StaffService {
     }
 
     public void addStaff(SignUpDto signUpDto) {
-        staffRepository.save(staffMapper.toEntity(signUpDto));
+        Staff staff = staffMapper.toEntity(signUpDto);
+        staff.setId(staff.getAccount().getId());
+        staffRepository.save(staff);
     }
-
 
     public void updateStaff(StaffDto staffDto) {
         if (staffRepository.findById(staffDto.getId()).isEmpty())

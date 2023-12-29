@@ -44,7 +44,9 @@ public class AdopterService {
     }
 
     public void add(SignUpDto signUpDto) {
-        adopterRepository.save(adopterMapper.toEntity(signUpDto));
+        Adopter adopter = adopterMapper.toEntity(signUpDto);
+        adopter.setId(adopter.getAccount().getId());
+        adopterRepository.save(adopter);
     }
 
     public void updateAdopter(AdopterDto adopterDto) {
