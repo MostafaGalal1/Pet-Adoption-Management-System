@@ -19,7 +19,6 @@ public class AdopterController {
 
     @GetMapping
     public ResponseEntity<List<AdopterDto>> getAllAdopters() {
-        adopterService.getAllAdopters();
         return ResponseEntity.ok(adopterService.getAllAdopters());
     }
 
@@ -30,7 +29,8 @@ public class AdopterController {
 
     @PostMapping
     public ResponseEntity<String> addAdopter(@RequestBody AdopterDto adopterDto) {
-        return adopterService.add(adopterDto);
+        adopterService.add(adopterDto);
+        return ResponseEntity.ok("Adopter added successfully");
     }
 
     @PutMapping

@@ -28,24 +28,24 @@ public class StaffController {
     @GetMapping("/{staffId}")
     public ResponseEntity<Staff> getStaff(@PathVariable int staffId){
         Staff staff = staffService.get(staffId);
-        return new ResponseEntity<>(staff, HttpStatus.OK);
+        return ResponseEntity.ok(staff);
     }
 
     @PostMapping
     public ResponseEntity<String> addStaff(StaffDto staffDto){
         staffService.add(staffDto);
-        return new ResponseEntity<>("Staff added", HttpStatus.OK);
+        return ResponseEntity.ok("Staff added successfully");
     }
 
     @PutMapping
     public ResponseEntity<String> updateStaff(StaffDto staffDto){
         staffService.update(staffDto);
-        return new ResponseEntity<>("Staff updated", HttpStatus.OK);
+        return ResponseEntity.ok("Staff updated successfully");
     }
 
     @DeleteMapping("/{staffId}")
     public ResponseEntity<String> deleteStaff(@PathVariable int staffId){
         staffService.delete(staffId);
-        return new ResponseEntity<>("Staff deleted", HttpStatus.OK);
+        return ResponseEntity.ok("Staff deleted successfully");
     }
 }

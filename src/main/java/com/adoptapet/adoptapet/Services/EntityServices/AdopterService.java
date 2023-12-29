@@ -2,11 +2,11 @@ package com.adoptapet.adoptapet.Services.EntityServices;
 
 import com.adoptapet.adoptapet.Dtos.AdopterDto;
 import com.adoptapet.adoptapet.Entities.Adopter;
+import com.adoptapet.adoptapet.Exceptions.AdopterExceptions.AdopterAlreadyExistsException;
+import com.adoptapet.adoptapet.Exceptions.AdopterExceptions.AdopterNotFoundException;
 import com.adoptapet.adoptapet.Mappers.AdopterMapper;
 import com.adoptapet.adoptapet.Repositories.AdopterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,26 +29,30 @@ public class AdopterService {
     }
 
     public AdopterDto getAdopter(int adopterId) {
-        Adopter adopter = adopterRepository.findById(adopterId).orElse(null);
+        if (adopterRepository.findById(adopterId).isEmpty())
+            throw new AdopterNotFoundException();
+        Adopter adopter = adopterRepository.findById(adopterId).get();
         return adopterMapper.toDto(adopter);
     }
 
-    public ResponseEntity<String> add(AdopterDto adopterDto) {
+    public void add(AdopterDto adopterDto) {
+        if (adopterRepository.findById(adopterDto.getId()).isPresent())
+            throw new AdopterAlreadyExistsException();
         Adopter adopter = adopterMapper.toEntity(adopterDto);
-        if (!adopterRepository.existsByAccount(adopter.getAccount())) {
-            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
-        }
         adopterRepository.save(adopter);
-        return new ResponseEntity<>("Adopter added", HttpStatus.ACCEPTED);
     }
 
     public void updateAdopter(AdopterDto adopterDto) {
-        Adopter adopter = adopterRepository.findById(adopterDto.getId()).orElse(null);
+        if (adopterRepository.findById(adopterDto.getId()).isEmpty())
+            throw new AdopterNotFoundException();
+        Adopter adopter = adopterRepository.findById(adopterDto.getId()).get();
         adopterMapper.partialUpdate(adopterDto, adopter);
         adopterRepository.save(adopter);
     }
 
     public void deleteAdopter(int adopterId) {
+        if (adopterRepository.findById(adopterId).isEmpty())
+            throw new AdopterNotFoundException();
         adopterRepository.deleteById(adopterId);
     }
 }

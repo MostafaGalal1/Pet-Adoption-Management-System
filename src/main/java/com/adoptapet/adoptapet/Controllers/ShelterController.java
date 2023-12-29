@@ -19,18 +19,18 @@ public class ShelterController {
     @PostMapping
     public ResponseEntity<String> addShelter(ShelterDto shelterDto) {
         shelterService.add(shelterDto);
-        return ResponseEntity.ok("Shelter added");
+        return ResponseEntity.ok("Shelter added successfully");
     }
 
     @PutMapping
     public ResponseEntity<String> updateShelter(ShelterDto shelterDto) {
         shelterService.update(shelterDto);
-        return ResponseEntity.ok("Shelter updated");
+        return ResponseEntity.ok("Shelter updated successfully");
     }
 
     @DeleteMapping("{shelterId}")
     public ResponseEntity<String> deleteShelter(@PathVariable int shelterId) {
         shelterService.delete(shelterId);
-        return ResponseEntity.ok("Shelter deleted");
+        return ResponseEntity.ok("Shelter deleted successfully");
     }
 }

@@ -2,7 +2,10 @@ package com.adoptapet.adoptapet.Controllers;
 
 import com.adoptapet.adoptapet.Dtos.ImageDto;
 import com.adoptapet.adoptapet.Services.EntityServices.ImageService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/images")
@@ -14,23 +17,25 @@ public class ImageController {
     }
 
     @GetMapping("/{petId}")
-    public void getAllImages(@PathVariable int petId) {
-        imageService.getAllImages(petId);
+    public ResponseEntity<List<ImageDto>> getAllImages(@PathVariable int petId) {
+        return ResponseEntity.ok(imageService.getAllImages(petId));
     }
 
     // Let's agree on convention that if imageId is 0, then this is the profile image for carousel
     @GetMapping("/{petId}/{imageId}")
-    public ImageDto getImage(@PathVariable int petId, @PathVariable int imageId) {
-        return imageService.getImage(petId, imageId);
+    public ResponseEntity<ImageDto> getImage(@PathVariable int petId, @PathVariable int imageId) {
+        return ResponseEntity.ok(imageService.getImage(petId, imageId));
     }
 
     @PostMapping
-    public void addImage(@RequestBody ImageDto imageDto) {
+    public ResponseEntity<String> addImage(@RequestBody ImageDto imageDto) {
         imageService.addImage(imageDto);
+        return ResponseEntity.ok("Image added successfully");
     }
 
     @DeleteMapping("/{petId}/{imageId}")
-    public void deleteImage(@PathVariable int petId, @PathVariable int imageId) {
+    public ResponseEntity<String> deleteImage(@PathVariable int petId, @PathVariable int imageId) {
         imageService.deleteImage(petId, imageId);
+        return ResponseEntity.ok("Image deleted successfully");
     }
 }
