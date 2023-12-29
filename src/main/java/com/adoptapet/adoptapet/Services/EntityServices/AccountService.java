@@ -34,17 +34,18 @@ public class AccountService {
         return accountRepository.findAll().stream().map(accountMapper::toDto).collect(Collectors.toList());
     }
 
-    public AccountDto getAccount(int accountId) {
-        if (accountRepository.findById(accountId).isEmpty())
+    public AccountDto getAccount(String accountEmail) {
+        if (accountRepository.findByEmail(accountEmail).isEmpty())
             throw new AccountNotFoundException();
-        Account account = accountRepository.findById(accountId).get();
+        Account account = accountRepository.findByEmail(accountEmail).get();
         return accountMapper.toDto(account);
     }
 
     public void addAccount(AccountDto accountDto) {
-        if (accountRepository.findById(accountDto.getId()).isPresent())
+        if (accountRepository.findByEmail(accountDto.getEmail()).isPresent())
             throw new AccountAlreadyExistsException();
         Account account = accountMapper.toEntity(accountDto);
+        System.out.println(account);
         accountRepository.save(account);
     }
 
@@ -65,7 +66,7 @@ public class AccountService {
     public void register(AccountDto accountDto) {
         if (accountDto.getRole() == Role.ADMIN)
             throw new AccountRegisterAsAdminForbiddenException();
-        if (accountRepository.findById(accountDto.getId()).isPresent())
+        if (accountRepository.findByEmail(accountDto.getEmail()).isPresent())
             throw new AccountAlreadyExistsException();
         Account account = accountMapper.toEntity(accountDto);
         account.setPassword(encoder.encode(account.getPassword()));

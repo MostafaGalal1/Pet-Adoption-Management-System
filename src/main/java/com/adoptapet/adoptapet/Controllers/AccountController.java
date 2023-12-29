@@ -28,9 +28,9 @@ public class AccountController {
         return ResponseEntity.ok(accountService.getAllAccounts());
     }
 
-    @GetMapping("/{accountId}")
-    public ResponseEntity<AccountDto> getAccount(@PathVariable int accountId) {
-        return ResponseEntity.ok(accountService.getAccount(accountId));
+    @GetMapping("/{accountEmail}")
+    public ResponseEntity<AccountDto> getAccount(@PathVariable String accountEmail) {
+        return ResponseEntity.ok(accountService.getAccount(accountEmail));
     }
 
     @PostMapping
