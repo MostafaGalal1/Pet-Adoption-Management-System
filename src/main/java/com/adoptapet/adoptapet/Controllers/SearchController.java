@@ -2,7 +2,7 @@ package com.adoptapet.adoptapet.Controllers;
 
 import org.springframework.data.domain.Page;
 import com.adoptapet.adoptapet.Entities.Pet.Pet;
-import com.adoptapet.adoptapet.Services.BusinessSerivces.SearchService.SearchService;
+import com.adoptapet.adoptapet.Services.SearchService.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

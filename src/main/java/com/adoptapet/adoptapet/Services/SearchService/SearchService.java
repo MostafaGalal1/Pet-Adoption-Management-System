@@ -1,4 +1,4 @@
-package com.adoptapet.adoptapet.Services.BusinessSerivces.SearchService;
+package com.adoptapet.adoptapet.Services.SearchService;
 
 import com.adoptapet.adoptapet.Entities.Pet.Pet;
 import com.adoptapet.adoptapet.Services.EntityServices.PetService;
