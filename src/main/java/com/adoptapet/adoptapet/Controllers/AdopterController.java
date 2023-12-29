@@ -36,12 +36,12 @@ public class AdopterController {
     @PutMapping
     public ResponseEntity<String> updateAdopter(@RequestBody AdopterDto adopterDto) {
         adopterService.updateAdopter(adopterDto);
-        return ResponseEntity.ok("Adopter updated");
+        return ResponseEntity.ok("Adopter updated successfully");
     }
 
     @DeleteMapping("/{adopterId}")
     public ResponseEntity<String> deleteAdopter(@PathVariable int adopterId) {
         adopterService.deleteAdopter(adopterId);
-        return ResponseEntity.ok("Adopter deleted");
+        return ResponseEntity.ok("Adopter deleted successfully");
     }
 }
