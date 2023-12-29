@@ -19,33 +19,36 @@ public class StaffController {
         this.staffService = staffService;
     }
 
+    @GetMapping
+    public ResponseEntity<List<StaffDto>> getAllStaffs(){
+        return ResponseEntity.ok(staffService.getAllStaffs());
+    }
+
     @GetMapping("/{shelterId}")
     public ResponseEntity<List<StaffDto>> getAllStaffs(@PathVariable int shelterId){
-        List<StaffDto> staffDtos = staffService.getAllStaffs(shelterId);
-        return new ResponseEntity<>(staffDtos, HttpStatus.OK);
+        return ResponseEntity.ok(staffService.getAllStaffByShelterId(shelterId));
     }
 
     @GetMapping("/{staffId}")
     public ResponseEntity<Staff> getStaff(@PathVariable int staffId){
-        Staff staff = staffService.get(staffId);
-        return ResponseEntity.ok(staff);
+        return ResponseEntity.ok(staffService.getStaff(staffId));
     }
 
     @PostMapping
-    public ResponseEntity<String> addStaff(StaffDto staffDto){
-        staffService.add(staffDto);
+    public ResponseEntity<String> addStaff(@RequestBody StaffDto staffDto){
+        staffService.addStaff(staffDto);
         return ResponseEntity.ok("Staff added successfully");
     }
 
     @PutMapping
-    public ResponseEntity<String> updateStaff(StaffDto staffDto){
-        staffService.update(staffDto);
+    public ResponseEntity<String> updateStaff(@RequestBody StaffDto staffDto){
+        staffService.updateStaff(staffDto);
         return ResponseEntity.ok("Staff updated successfully");
     }
 
     @DeleteMapping("/{staffId}")
     public ResponseEntity<String> deleteStaff(@PathVariable int staffId){
-        staffService.delete(staffId);
+        staffService.deleteStaff(staffId);
         return ResponseEntity.ok("Staff deleted successfully");
     }
 }

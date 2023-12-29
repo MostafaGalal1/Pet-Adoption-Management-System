@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/shelter")
 public class ShelterController {
@@ -16,21 +18,31 @@ public class ShelterController {
         this.shelterService = shelterService;
     }
 
+    @GetMapping
+    public ResponseEntity<List<ShelterDto>> getAllShelters() {
+        return ResponseEntity.ok(shelterService.getAllShelters());
+    }
+
+    @GetMapping("{shelterId}")
+    public ResponseEntity<ShelterDto> getShelter(@RequestParam int shelterId) {
+        return ResponseEntity.ok(shelterService.getShelter(shelterId));
+    }
+
     @PostMapping
     public ResponseEntity<String> addShelter(ShelterDto shelterDto) {
-        shelterService.add(shelterDto);
+        shelterService.addShelter(shelterDto);
         return ResponseEntity.ok("Shelter added successfully");
     }
 
     @PutMapping
     public ResponseEntity<String> updateShelter(ShelterDto shelterDto) {
-        shelterService.update(shelterDto);
+        shelterService.updateShelter(shelterDto);
         return ResponseEntity.ok("Shelter updated successfully");
     }
 
     @DeleteMapping("{shelterId}")
     public ResponseEntity<String> deleteShelter(@PathVariable int shelterId) {
-        shelterService.delete(shelterId);
+        shelterService.deleteShelter(shelterId);
         return ResponseEntity.ok("Shelter deleted successfully");
     }
 }

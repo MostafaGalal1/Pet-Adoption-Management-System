@@ -1,6 +1,9 @@
 package com.adoptapet.adoptapet.Services.EntityServices;
 import com.adoptapet.adoptapet.Dtos.StaffDto;
 import com.adoptapet.adoptapet.Entities.Staff.Staff;
+import com.adoptapet.adoptapet.Exceptions.ShelterExceptions.ShelterNotFoundException;
+import com.adoptapet.adoptapet.Exceptions.StaffExceptions.StaffAlreadyExistsException;
+import com.adoptapet.adoptapet.Exceptions.StaffExceptions.StaffNotFoundException;
 import com.adoptapet.adoptapet.Mappers.StaffMapper;
 import com.adoptapet.adoptapet.Repositories.StaffRepository;
 import org.springframework.http.HttpStatus;
@@ -22,42 +25,41 @@ public class StaffService {
         this.staffMapper = staffMapper;
     }
 
-    public List<StaffDto> getAllStaffs(int shelterId) {
+    public List<StaffDto> getAllStaffs() {
+        return staffMapper.toDtoList(staffRepository.findAll());
+    }
+
+    public List<StaffDto> getAllStaffByShelterId(int shelterId) {
+        if (staffRepository.findAllByShelterId(shelterId).isEmpty())
+            throw new ShelterNotFoundException();
         return staffMapper.toDtoList(staffRepository.findAllByShelterId(shelterId));
     }
 
-    public Staff get(Integer id) {
-        return staffRepository.findById(id).orElse(null);
+    public Staff getStaff(int staffId) {
+        if (staffRepository.findById(staffId).isEmpty())
+            throw new StaffNotFoundException();
+        return staffRepository.findById(staffId).get();
     }
 
-    public void add(StaffDto staffDto) {
-        staffRepository.save(staffMapper.toEntity(staffDto));
+    public void addStaff(StaffDto staffDto) {
+        if (staffRepository.findById(staffDto.getId()).isPresent())
+            throw new StaffAlreadyExistsException();
+        Staff staff = staffMapper.toEntity(staffDto);
+        staffRepository.save(staff);
     }
 
-    public void update(StaffDto staffDto) {
-        Staff staff = staffRepository.findById(staffDto.getId()).orElse(null);
+
+    public void updateStaff(StaffDto staffDto) {
+        if (staffRepository.findById(staffDto.getId()).isEmpty())
+            throw new StaffNotFoundException();
+        Staff staff = staffRepository.findById(staffDto.getId()).get();
         staffMapper.partialUpdate(staffDto, staff);
         staffRepository.save(staff);
     }
 
-    public void delete(int staffId) {
+    public void deleteStaff(int staffId) {
+        if (staffRepository.findById(staffId).isEmpty())
+            throw new StaffNotFoundException();
         staffRepository.deleteById(staffId);
-    }
-
-    public void deleteAll() {
-        staffRepository.deleteAll();
-    }
-
-    public long count() {
-        return staffRepository.count();
-    }
-
-    public ResponseEntity<String > getStaff(StaffDto staffDto) {
-        Staff staff = staffMapper.toEntity(staffDto);
-        if (!staffRepository.existsByAccount(staff.getAccount())) {
-            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
-        }
-        staffRepository.save(staff);
-        return new ResponseEntity<>( "Staff saved", HttpStatus.ACCEPTED );
     }
 }
