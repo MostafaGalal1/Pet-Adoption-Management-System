@@ -3,6 +3,7 @@ package com.adoptapet.adoptapet.Mappers;
 import com.adoptapet.adoptapet.Dtos.AdopterDto;
 import com.adoptapet.adoptapet.Entities.Adopter;
 import org.mapstruct.*;
+
 import java.util.List;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = "spring")

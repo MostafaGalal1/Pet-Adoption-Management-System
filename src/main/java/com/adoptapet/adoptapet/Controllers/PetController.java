@@ -1,7 +1,7 @@
 package com.adoptapet.adoptapet.Controllers;
 
 import com.adoptapet.adoptapet.Dtos.PetDto;
-import com.adoptapet.adoptapet.Services.PetService;
+import com.adoptapet.adoptapet.Services.EntityServices.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,18 +30,18 @@ public class PetController {
     @PostMapping
     public ResponseEntity<String> addPet(@RequestBody PetDto petDto) {
         petService.addPet(petDto);
-        return ResponseEntity.ok("Pet added");
+        return ResponseEntity.ok("Pet added successfully");
     }
 
     @PutMapping
     public ResponseEntity<String> updatePet(@RequestBody PetDto petDto) {
         petService.updatePet(petDto);
-        return ResponseEntity.ok("Pet updated");
+        return ResponseEntity.ok("Pet updated successfully");
     }
 
     @DeleteMapping("/{petId}")
     public ResponseEntity<String> deletePet(@PathVariable int petId) {
         petService.deletePet(petId);
-        return ResponseEntity.ok("Pet deleted");
+        return ResponseEntity.ok("Pet deleted successfully");
     }
 }

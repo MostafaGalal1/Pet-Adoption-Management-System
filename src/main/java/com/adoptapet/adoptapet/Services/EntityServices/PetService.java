@@ -1,8 +1,10 @@
-package com.adoptapet.adoptapet.Services;
+package com.adoptapet.adoptapet.Services.EntityServices;
 
 import com.adoptapet.adoptapet.Dtos.PetDto;
 import com.adoptapet.adoptapet.Entities.Pet.Pet;
 import com.adoptapet.adoptapet.Entities.Shelter;
+import com.adoptapet.adoptapet.Exceptions.PetExceptions.PetAlreadyExistsException;
+import com.adoptapet.adoptapet.Exceptions.PetExceptions.PetNotFoundException;
 import com.adoptapet.adoptapet.Mappers.PetMapper;
 import com.adoptapet.adoptapet.Repositories.PetRepository;
 import com.adoptapet.adoptapet.Repositories.ShelterRepository;
@@ -11,7 +13,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,10 +20,9 @@ import java.util.List;
 
 @Service
 public class PetService {
+    private static final int PAGE_SIZE = 10;
     private final PetRepository petRepository;
-
     private final ShelterRepository shelterRepository;
-
     private final PetMapper petMapper;
 
     @Autowired
@@ -38,22 +38,29 @@ public class PetService {
     }
 
     public PetDto getPet(int petId) {
-        Pet pet = petRepository.findById(petId).orElse(null);
+        if (petRepository.findById(petId).isEmpty())
+            throw new PetNotFoundException();
+        Pet pet = petRepository.findById(petId).get();
         return petMapper.toDto(pet);
     }
 
     public void addPet(PetDto petDto) {
+        if (petRepository.findById(petDto.getId()).isPresent())
+            throw new PetAlreadyExistsException();
         Pet pet = petMapper.toEntity(petDto);
         petRepository.save(pet);
     }
 
     public void updatePet(PetDto petDto) {
-        Pet pet = petRepository.findById(petDto.getId()).orElse(null);
-        petMapper.partialUpdate(petDto, pet);
+        if (petRepository.findById(petDto.getId()).isEmpty())
+            throw new PetNotFoundException();
+        Pet pet = petRepository.findById(petDto.getId()).get();
         petRepository.save(pet);
     }
 
     public void deletePet(int id) {
+        if (petRepository.findById(id).isEmpty())
+            throw new PetNotFoundException();
         petRepository.deleteById(id);
     }
 
@@ -78,7 +85,7 @@ public class PetService {
     }
 
     public Page<Pet> findAllPets(Specification<Pet> specification, int pageCount) {
-        Pageable pageable = PageRequest.of(pageCount, 10);
+        Pageable pageable = PageRequest.of(pageCount, PAGE_SIZE);
         return petRepository.findAll(specification, pageable);
     }
 }

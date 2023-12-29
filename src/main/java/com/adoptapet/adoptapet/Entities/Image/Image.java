@@ -13,17 +13,14 @@ import lombok.*;
 @Builder
 public class Image {
     @Id
-    @Column(name = "petId")
-    private int petId;
-
-    @Id
     @Column(name = "imageId")
     private int imageId;
 
     @Column(name = "link")
     private String link;
 
-    @ManyToOne
+    @Id
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "petId")
     private Pet pet;
 }

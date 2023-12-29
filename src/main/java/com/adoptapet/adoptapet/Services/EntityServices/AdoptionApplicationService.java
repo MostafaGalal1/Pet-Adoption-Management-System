@@ -1,4 +1,4 @@
-package com.adoptapet.adoptapet.Services;
+package com.adoptapet.adoptapet.Services.EntityServices;
 import com.adoptapet.adoptapet.Dtos.AdoptionApplicationDto;
 import com.adoptapet.adoptapet.Dtos.ImageDto;
 import com.adoptapet.adoptapet.Entities.AdoptionApplication.AdoptionApplication;
@@ -7,16 +7,12 @@ import com.adoptapet.adoptapet.Entities.AdoptionApplication.Status;
 import com.adoptapet.adoptapet.Mappers.AdoptionApplicationMapper;
 import com.adoptapet.adoptapet.Mappers.ImageMapper;
 import com.adoptapet.adoptapet.Repositories.AdoptionApplicationRepository;
-<<<<<<< Updated upstream:src/main/java/com/adoptapet/adoptapet/Services/AdoptionApplicationService.java
-=======
 import com.adoptapet.adoptapet.Repositories.ImageRepository;
->>>>>>> Stashed changes:src/main/java/com/adoptapet/adoptapet/Services/EntityServices/AdoptionApplicationService.java
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AdoptionApplicationService {
@@ -33,17 +29,8 @@ public class AdoptionApplicationService {
         this.imageMapper = imageMapper;
     }
 
-//    public List<AdoptionApplicationDto> getAll() {
-//        List<AdoptionApplication> adoptionApplications = adoptionApplicationRepository.findAll();
-//        System.out.println(adoptionApplications.size());
-//        List<AdoptionApplicationDto> adoptionApplicationDtos = new ArrayList<>();
-//        return null;
-//    }
-
-    public List<AdoptionApplication> getAll() {
-        List<AdoptionApplication> adoptionApplications = adoptionApplicationRepository.findAll();
-        System.out.println(adoptionApplications.size());
-        return adoptionApplications;
+    public List<AdoptionApplicationDto> getAll() {
+        return adoptionApplicationRepository.findAll().stream().map(adoptionApplicationMapper::toDto).collect(Collectors.toList());
     }
 
     public void add(AdoptionApplicationDto applicationDto) {
@@ -56,21 +43,12 @@ public class AdoptionApplicationService {
     }
 
     public void updateStatus(AdoptionApplicationId applicationId, Status newStatus) {
-<<<<<<< Updated upstream:src/main/java/com/adoptapet/adoptapet/Services/AdoptionApplicationService.java
-=======
         System.out.println(applicationId.getAdopter());
->>>>>>> Stashed changes:src/main/java/com/adoptapet/adoptapet/Services/EntityServices/AdoptionApplicationService.java
         AdoptionApplication adoptionApplication = adoptionApplicationRepository.findById(applicationId)
                 .orElseThrow(() -> new EntityNotFoundException("Adoption application not found"));
         adoptionApplication.setStatus(newStatus);
         adoptionApplicationRepository.save(adoptionApplication);
     }
-<<<<<<< Updated upstream:src/main/java/com/adoptapet/adoptapet/Services/AdoptionApplicationService.java
-=======
 
-    public List<ImageDto> getImages(int petId) {
-        return imageMapper.toDtoList(imageRepository.findAllByPetId(petId));
-    }
 
->>>>>>> Stashed changes:src/main/java/com/adoptapet/adoptapet/Services/EntityServices/AdoptionApplicationService.java
 }
