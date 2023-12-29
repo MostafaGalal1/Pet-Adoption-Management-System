@@ -6,6 +6,7 @@ import com.adoptapet.adoptapet.Entities.Pet.HealthStatus;
 import lombok.Value;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * DTO for {@link com.adoptapet.adoptapet.Entities.Pet.Pet}
@@ -22,9 +23,8 @@ public class PetDto implements Serializable {
     Behaviour behaviour;
     String description;
     boolean adopted;
-    boolean vacinated;
+    boolean vaccinated;
     boolean castrated;
-    boolean homeTrained;
-    int shelterId;
+    boolean houseTrained;
     ShelterDto shelter;
 }

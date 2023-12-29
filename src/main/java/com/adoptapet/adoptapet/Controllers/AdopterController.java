@@ -1,6 +1,6 @@
 package com.adoptapet.adoptapet.Controllers;
 import com.adoptapet.adoptapet.Dtos.AdopterDto;
-import com.adoptapet.adoptapet.Services.AdopterService;
+import com.adoptapet.adoptapet.Services.EntityServices.AdopterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

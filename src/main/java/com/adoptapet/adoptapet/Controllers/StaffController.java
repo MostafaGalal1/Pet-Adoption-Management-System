@@ -2,7 +2,7 @@ package com.adoptapet.adoptapet.Controllers;
 
 import com.adoptapet.adoptapet.Dtos.StaffDto;
 import com.adoptapet.adoptapet.Entities.Staff.Staff;
-import com.adoptapet.adoptapet.Services.StaffService;
+import com.adoptapet.adoptapet.Services.EntityServices.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

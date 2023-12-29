@@ -1,4 +1,4 @@
-package com.adoptapet.adoptapet.Services;
+package com.adoptapet.adoptapet.Services.EntityServices;
 import com.adoptapet.adoptapet.Dtos.ShelterDto;
 import com.adoptapet.adoptapet.Entities.Shelter;
 import com.adoptapet.adoptapet.Mappers.ShelterMapper;

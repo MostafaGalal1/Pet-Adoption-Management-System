@@ -1,4 +1,4 @@
-package com.adoptapet.adoptapet.Services;
+package com.adoptapet.adoptapet.Services.EntityServices;
 import com.adoptapet.adoptapet.Dtos.StaffDto;
 import com.adoptapet.adoptapet.Entities.Staff.Staff;
 import com.adoptapet.adoptapet.Mappers.StaffMapper;

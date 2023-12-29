@@ -1,8 +1,7 @@
-package com.adoptapet.adoptapet.Services;
+package com.adoptapet.adoptapet.Services.EntityServices;
 
 import com.adoptapet.adoptapet.Dtos.AdopterDto;
 import com.adoptapet.adoptapet.Entities.Adopter;
-import com.adoptapet.adoptapet.Entities.Pet.Pet;
 import com.adoptapet.adoptapet.Mappers.AdopterMapper;
 import com.adoptapet.adoptapet.Repositories.AdopterRepository;
 import org.springframework.beans.factory.annotation.Autowired;

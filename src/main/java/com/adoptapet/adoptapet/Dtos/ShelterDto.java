@@ -16,6 +16,4 @@ public class ShelterDto implements Serializable {
     String location;
     int managerId;
     StaffDto manager;
-    List<StaffDto> staff;
-    List<PetDto> pets;
 }

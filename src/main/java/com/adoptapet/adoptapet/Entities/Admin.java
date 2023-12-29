@@ -16,7 +16,7 @@ public class Admin {
     private int id;
 
     @MapsId
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id")
     private Account account;
 }

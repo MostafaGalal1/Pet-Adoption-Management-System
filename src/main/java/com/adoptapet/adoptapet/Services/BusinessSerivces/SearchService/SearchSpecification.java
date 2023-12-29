@@ -1,4 +1,4 @@
-package com.adoptapet.adoptapet.Services.EntitySearch;
+package com.adoptapet.adoptapet.Services.BusinessSerivces.SearchService;
 
 import jakarta.persistence.criteria.Expression;
 import org.springframework.data.jpa.domain.Specification;

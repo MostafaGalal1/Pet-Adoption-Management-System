@@ -1,8 +1,7 @@
-package com.adoptapet.adoptapet.Services;
+package com.adoptapet.adoptapet.Services.BusinessSerivces.SearchService;
 
 import com.adoptapet.adoptapet.Entities.Pet.Pet;
-import com.adoptapet.adoptapet.Services.EntitySearch.SearchFilter;
-import com.adoptapet.adoptapet.Services.EntitySearch.SearchSpecification;
+import com.adoptapet.adoptapet.Services.EntityServices.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;

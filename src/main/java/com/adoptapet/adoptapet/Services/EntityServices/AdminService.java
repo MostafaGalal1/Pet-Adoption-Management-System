@@ -1,4 +1,4 @@
-package com.adoptapet.adoptapet.Services;
+package com.adoptapet.adoptapet.Services.EntityServices;
 
 
 import org.springframework.stereotype.Service;

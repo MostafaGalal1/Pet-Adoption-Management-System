@@ -1,7 +1,7 @@
 package com.adoptapet.adoptapet.Controllers;
 import com.adoptapet.adoptapet.Dtos.AdoptionApplicationDto;
 import com.adoptapet.adoptapet.Entities.AdoptionApplication.AdoptionApplicationId;
-import com.adoptapet.adoptapet.Services.AdoptionApplicationService;
+import com.adoptapet.adoptapet.Services.EntityServices.AdoptionApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +22,7 @@ public class AdoptionApplicationController {
 //        return ResponseEntity.ok(adoptionApplicationService.getAllAdoptionApplications());
 //    }
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<List<AdoptionApplicationDto>> getAllAdoptionApplications() {
         return ResponseEntity.ok(adoptionApplicationService.getAll());
     }
@@ -38,6 +38,4 @@ public class AdoptionApplicationController {
         adoptionApplicationService.delete(applicationId);
         return ResponseEntity.ok("Adoption application deleted");
     }
-
-
 }

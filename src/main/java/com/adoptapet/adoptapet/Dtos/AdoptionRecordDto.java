@@ -1,6 +1,5 @@
 package com.adoptapet.adoptapet.Dtos;
 
-import com.adoptapet.adoptapet.Entities.Pet.Pet;
 import lombok.Value;
 
 import java.io.Serializable;
@@ -10,8 +9,7 @@ import java.io.Serializable;
  */
 @Value
 public class AdoptionRecordDto implements Serializable {
-    int petId;
-    int adopterId;
-    Pet pet;
+    PetDto pet;
     AdopterDto adopter;
+    StaffDto staff;
 }

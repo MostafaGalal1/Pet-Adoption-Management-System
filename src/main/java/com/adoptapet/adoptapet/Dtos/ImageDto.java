@@ -9,7 +9,6 @@ import java.io.Serializable;
  */
 @Value
 public class ImageDto implements Serializable {
-    int petId;
     int imageId;
     String link;
     PetDto pet;

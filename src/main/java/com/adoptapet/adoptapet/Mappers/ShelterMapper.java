@@ -8,6 +8,7 @@ import org.mapstruct.*;
 public interface ShelterMapper {
     Shelter toEntity(ShelterDto shelterDto);
 
+    @Mapping(target = "manager", ignore = true)
     ShelterDto toDto(Shelter shelter);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

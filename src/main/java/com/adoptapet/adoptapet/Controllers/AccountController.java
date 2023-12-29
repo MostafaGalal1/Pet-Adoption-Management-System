@@ -2,11 +2,12 @@ package com.adoptapet.adoptapet.Controllers;
 
 
 import com.adoptapet.adoptapet.Dtos.AccountDto;
-import com.adoptapet.adoptapet.Services.AccountService;
+import com.adoptapet.adoptapet.Services.EntityServices.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 // use this link to trace endpoints: http://localhost:8080/swagger-ui.html
 
@@ -23,50 +24,42 @@ public class AccountController {
     }
 
     @GetMapping
-    public ResponseEntity<String> getAllAccounts() {
-        System.out.println("getAllAccounts");
-        return new ResponseEntity<>("getAllAccounts", HttpStatus.OK);
+    public List<AccountDto> getAllAccounts() {
+        return accountService.getAllAccounts();
     }
 
     @GetMapping("/{accountId}")
-    public ResponseEntity<String> getAccount(@PathVariable int accountId) {
-        System.out.println("getAccount");
-        return new ResponseEntity<>("getAccount", HttpStatus.OK);
+    public AccountDto getAccount(@PathVariable int accountId) {
+        return accountService.getAccount(accountId);
     }
 
     @PostMapping
-    public ResponseEntity<String> addAccount(@RequestBody AccountDto signUpDto) {
-        System.out.println("addAccount");
-        return new ResponseEntity<>("addAccount", HttpStatus.OK);
+    public ResponseEntity<String> addAccount(@RequestBody AccountDto accountDto) {
+        accountService.addAccount(accountDto);
+        return ResponseEntity.ok("Account added successfully");
     }
 
     @PutMapping
-    public ResponseEntity<String> updateAccount(@RequestBody AccountDto signUpDto) {
-        System.out.println("updateAccount");
-        return new ResponseEntity<>("updateAccount", HttpStatus.OK);
+    public ResponseEntity<String> updateAccount(@RequestBody AccountDto accountDto) {
+        accountService.updateAccount(accountDto);
+        return ResponseEntity.ok("Account updated successfully");
     }
 
     @DeleteMapping("/{accountId}")
     public ResponseEntity<String> deleteAccount(@PathVariable int accountId) {
-        System.out.println("deleteAccount");
-        return new ResponseEntity<>("deleteAccount", HttpStatus.OK);
+        accountService.deleteAccount(accountId);
+        return ResponseEntity.ok("Account deleted successfully");
     }
 
-//    @GetMapping("test")
-//    public ResponseEntity<String> test() {
-//        System.out.println("test");
-//        return new ResponseEntity<>("test", HttpStatus.OK);
-//    }
-
-    @PostMapping("signup")
-    public ResponseEntity<String> signup(@RequestBody AccountDto signUpDto) {
-        System.out.println("signup");
-        return accountService.signup(signUpDto);
+    @PostMapping("/register")
+    public ResponseEntity<String> register(@RequestBody AccountDto accountDto) {
+        accountService.register(accountDto);
+        return ResponseEntity.ok("User registered successfully");
     }
 
-    @GetMapping("login")
-    public ResponseEntity<Object> login(@RequestParam String email, @RequestParam String password) {
-        System.out.println("login");
-        return accountService.login(email, password);
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody AccountDto accountDto) {
+        accountService.login(accountDto);
+        return ResponseEntity.ok("User logged in successfully");
     }
 }

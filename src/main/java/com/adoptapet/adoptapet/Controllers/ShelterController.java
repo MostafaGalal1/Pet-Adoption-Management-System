@@ -1,6 +1,6 @@
 package com.adoptapet.adoptapet.Controllers;
 import com.adoptapet.adoptapet.Dtos.ShelterDto;
-import com.adoptapet.adoptapet.Services.ShelterService;
+import com.adoptapet.adoptapet.Services.EntityServices.ShelterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -9,9 +9,7 @@ import java.io.Serializable;
  */
 @Value
 public class DocumentDto implements Serializable {
-    int petId;
     int documentId;
-    String name;
     String type;
     String link;
     PetDto pet;

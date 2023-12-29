@@ -1,4 +1,4 @@
-package com.adoptapet.adoptapet.Services;
+package com.adoptapet.adoptapet.Services.EntityServices;
 import com.adoptapet.adoptapet.Dtos.AdoptionApplicationDto;
 import com.adoptapet.adoptapet.Entities.AdoptionApplication.AdoptionApplication;
 import com.adoptapet.adoptapet.Entities.AdoptionApplication.AdoptionApplicationId;
@@ -7,6 +7,7 @@ import com.adoptapet.adoptapet.Repositories.AdoptionApplicationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AdoptionApplicationService {
@@ -20,9 +21,7 @@ public class AdoptionApplicationService {
     }
 
     public List<AdoptionApplicationDto> getAll() {
-        List<AdoptionApplication> adoptionApplications = adoptionApplicationRepository.findAll();
-        System.out.println(adoptionApplications);
-        return adoptionApplicationMapper.toDtoList(adoptionApplications);
+        return adoptionApplicationRepository.findAll().stream().map(adoptionApplicationMapper::toDto).collect(Collectors.toList());
     }
 
     public void add(AdoptionApplicationDto applicationDto) {

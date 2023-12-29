@@ -13,15 +13,8 @@ import lombok.*;
 @Builder
 public class Document {
     @Id
-    @Column(name = "petId")
-    private int petId;
-
-    @Id
     @Column(name = "documentId")
     private int documentId;
-
-    @Column(name = "name")
-    private String name;
 
     @Column(name = "type")
     private String type;
@@ -29,7 +22,8 @@ public class Document {
     @Column(name = "link")
     private String link;
 
-    @ManyToOne
+    @Id
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "petId")
     private Pet pet;
 }
