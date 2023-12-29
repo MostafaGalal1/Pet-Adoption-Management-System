@@ -1,4 +1,5 @@
 package com.adoptapet.adoptapet.Services.EntityServices;
+import com.adoptapet.adoptapet.Dtos.SignUpDto;
 import com.adoptapet.adoptapet.Dtos.StaffDto;
 import com.adoptapet.adoptapet.Entities.Staff.Staff;
 import com.adoptapet.adoptapet.Exceptions.ShelterExceptions.ShelterNotFoundException;
@@ -46,6 +47,10 @@ public class StaffService {
             throw new StaffAlreadyExistsException();
         Staff staff = staffMapper.toEntity(staffDto);
         staffRepository.save(staff);
+    }
+
+    public void addStaff(SignUpDto signUpDto) {
+        staffRepository.save(staffMapper.toEntity(signUpDto));
     }
 
 
