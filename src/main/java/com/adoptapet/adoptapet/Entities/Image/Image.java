@@ -6,7 +6,7 @@ import lombok.*;
 
 @Entity
 @IdClass(ImageId.class)
-@Table(name = "image")
+@Table(name = "=Image")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

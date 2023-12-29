@@ -21,6 +21,7 @@ public class AdoptionApplicationService {
 
     public List<AdoptionApplicationDto> getAll() {
         List<AdoptionApplication> adoptionApplications = adoptionApplicationRepository.findAll();
+        System.out.println(adoptionApplications);
         return adoptionApplicationMapper.toDtoList(adoptionApplications);
     }
 

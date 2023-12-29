@@ -7,7 +7,7 @@ import lombok.*;
 
 @Entity
 @IdClass(AdoptionApplicationId.class)
-@Table(name = "adoption_application")
+@Table(name = "AdoptionApplication")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
