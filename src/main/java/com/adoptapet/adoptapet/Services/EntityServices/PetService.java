@@ -125,7 +125,7 @@ public class PetService {
 
     public List<?> getValues(String criteria) {
         System.out.println(criteria);
-        if(criteria.equalsIgnoreCase("shelter")) {
+        if (criteria.equalsIgnoreCase("shelter")) {
             String query = "SELECT DISTINCT s.location FROM Shelter s";
             return entityManager.createNativeQuery(query).getResultList();
         }
@@ -134,7 +134,7 @@ public class PetService {
             return entityManager.createNativeQuery(query).getResultList();
         }
     }
-    
+
     public Page<Pet> findAllPets(Specification<Pet> specification, int pageCount) {
         Pageable pageable = PageRequest.of(pageCount, PAGE_SIZE);
         return petRepository.findAll(specification, pageable);
