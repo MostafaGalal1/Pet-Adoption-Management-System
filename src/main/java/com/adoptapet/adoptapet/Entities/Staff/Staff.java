@@ -2,6 +2,7 @@ package com.adoptapet.adoptapet.Entities.Staff;
 
 import com.adoptapet.adoptapet.Entities.Account.Account;
 import com.adoptapet.adoptapet.Entities.Shelter;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -33,5 +34,6 @@ public class Staff {
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "shelterId")
+    @JsonManagedReference
     private Shelter shelter;
 }

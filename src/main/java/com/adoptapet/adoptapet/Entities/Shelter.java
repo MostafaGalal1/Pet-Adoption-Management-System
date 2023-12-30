@@ -2,6 +2,7 @@ package com.adoptapet.adoptapet.Entities;
 
 import com.adoptapet.adoptapet.Entities.Pet.Pet;
 import com.adoptapet.adoptapet.Entities.Staff.Staff;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -30,14 +31,15 @@ public class Shelter {
 
     @OneToOne
     @JoinColumn(name = "managerId")
+    @JsonBackReference
     private Staff manager;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "shelter")
-    @ToString.Exclude
+    @JsonBackReference
     private List<Staff> staff;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "shelter")
-    @ToString.Exclude
+    @JsonBackReference
     private List<Pet> pets;
 
     public void addStaff(Staff staff) {

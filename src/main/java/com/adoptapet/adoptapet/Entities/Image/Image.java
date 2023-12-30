@@ -1,6 +1,7 @@
 package com.adoptapet.adoptapet.Entities.Image;
 
 import com.adoptapet.adoptapet.Entities.Pet.Pet;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,5 +23,6 @@ public class Image {
     @Id
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "petId")
+    @JsonManagedReference
     private Pet pet;
 }

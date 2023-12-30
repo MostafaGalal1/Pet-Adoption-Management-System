@@ -28,6 +28,7 @@ public class SearchService {
         SearchSpecification<T> searchSpecification = new SearchSpecification<>();
         List<Specification<T>> specifications = new ArrayList<>();
         for (Map.Entry<String, String> entry : searchParams.entrySet()) {
+            if (entry.getKey().equals("pageCount")) continue;
             SearchFilter searchFilter = SearchFilter.builder().field(entry.getKey()).operator(SearchFilter.QueryOperator.LIKE).value(entry.getValue()).build();
             specifications.add(searchSpecification.createSpecification(searchFilter));
         }
