@@ -24,7 +24,7 @@ public class ShelterController {
     }
 
     @GetMapping("{shelterId}")
-    public ResponseEntity<ShelterDto> getShelter(@RequestParam int shelterId) {
+    public ResponseEntity<ShelterDto> getShelter(@PathVariable int shelterId) {
         return ResponseEntity.ok(shelterService.getShelter(shelterId));
     }
 

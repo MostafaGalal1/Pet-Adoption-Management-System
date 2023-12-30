@@ -2,6 +2,7 @@ package com.adoptapet.adoptapet.Entities.Staff;
 
 import com.adoptapet.adoptapet.Entities.Account.Account;
 import com.adoptapet.adoptapet.Entities.Shelter;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;

@@ -6,6 +6,7 @@ import com.adoptapet.adoptapet.Entities.AdoptionApplication.AdoptionApplicationI
 import com.adoptapet.adoptapet.Entities.AdoptionApplication.Status;
 import com.adoptapet.adoptapet.Mappers.AdoptionApplicationMapper;
 import com.adoptapet.adoptapet.Repositories.AdoptionApplicationRepository;
+import com.adoptapet.adoptapet.Services.NotificationService.NotificationService;
 import jakarta.persistence.EntityNotFoundException;
 import com.adoptapet.adoptapet.Entities.Adopter;
 import com.adoptapet.adoptapet.Entities.Pet.Pet;
@@ -21,13 +22,15 @@ public class AdoptionApplicationService {
     private final AdoptionApplicationRepository adoptionApplicationRepository;
     private final PetService petService;
     private final AdopterService adopterService;
+    private final NotificationService notificationService;
 
     @Autowired
-    public AdoptionApplicationService(AdoptionApplicationMapper adoptionApplicationMapper, AdoptionApplicationRepository adoptionApplicationRepository, PetService petService, AdopterService adopterService) {
+    public AdoptionApplicationService(AdoptionApplicationMapper adoptionApplicationMapper, AdoptionApplicationRepository adoptionApplicationRepository, PetService petService, AdopterService adopterService, NotificationService notificationService) {
         this.adoptionApplicationMapper = adoptionApplicationMapper;
         this.adoptionApplicationRepository = adoptionApplicationRepository;
         this.petService = petService;
         this.adopterService = adopterService;
+        this.notificationService = notificationService;
     }
 
     public List<AdoptionApplicationDto> getAll() {
@@ -59,6 +62,7 @@ public class AdoptionApplicationService {
         AdoptionApplication adoptionApplication = adoptionApplicationRepository.findById(applicationId)
                 .orElseThrow(() -> new EntityNotFoundException("Adoption application not found"));
         adoptionApplication.setStatus(newStatus);
+        notificationService.sendAdoptionApplicationEmail(adopter.getAccount().getEmail());
         adoptionApplicationRepository.save(adoptionApplication);
     }
 

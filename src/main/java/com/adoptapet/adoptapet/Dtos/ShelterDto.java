@@ -19,5 +19,4 @@ public class ShelterDto implements Serializable {
     String contact;
     String location;
     int managerId;
-    StaffDto manager;
 }

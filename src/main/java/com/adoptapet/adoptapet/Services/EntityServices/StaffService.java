@@ -7,8 +7,6 @@ import com.adoptapet.adoptapet.Exceptions.StaffExceptions.StaffAlreadyExistsExce
 import com.adoptapet.adoptapet.Exceptions.StaffExceptions.StaffNotFoundException;
 import com.adoptapet.adoptapet.Mappers.StaffMapper;
 import com.adoptapet.adoptapet.Repositories.StaffRepository;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;

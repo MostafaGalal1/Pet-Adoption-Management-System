@@ -85,7 +85,6 @@ public class AccountService {
         Account account = accountMapper.toEntity(accountDto);
         if (accountRepository.findByEmail(account.getEmail()).isEmpty())
             throw new AccountNotFoundException();
-        System.out.println("llllllllllllllllllllllllllllllllllllllll");
         Account existingAccount = accountRepository.findByEmail(account.getEmail()).get();
         if (!encoder.matches(account.getPassword(),existingAccount.getPassword()))
             throw new AccountInvalidPasswordException();
