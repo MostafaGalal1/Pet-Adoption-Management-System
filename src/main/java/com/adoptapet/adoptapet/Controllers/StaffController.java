@@ -24,7 +24,7 @@ public class StaffController {
         return ResponseEntity.ok(staffService.getAllStaffs());
     }
 
-    @GetMapping("/{shelterId}")
+    @GetMapping("/shelter/{shelterId}")
     public ResponseEntity<List<StaffDto>> getAllStaffs(@PathVariable int shelterId){
         return ResponseEntity.ok(staffService.getAllStaffByShelterId(shelterId));
     }

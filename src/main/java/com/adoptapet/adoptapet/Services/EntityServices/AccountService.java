@@ -80,6 +80,7 @@ public class AccountService {
         account.setPassword(encoder.encode(account.getPassword()));
         accountRepository.save(account);
         signUpDto.setAccount(account);
+        System.out.println(signUpDto);
         if (signUpDto.getRole() == Role.STAFF) staffService.addStaff(signUpDto);
         else if (signUpDto.getRole() == Role.ADOPTER) adopterService.add(signUpDto);
     }

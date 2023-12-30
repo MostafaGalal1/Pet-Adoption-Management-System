@@ -52,6 +52,7 @@ public class StaffService {
     public void addStaff(SignUpDto signUpDto) {
         Staff staff = staffMapper.toEntity(signUpDto);
         staff.setId(staff.getAccount().getId());
+        System.out.println(staff);
         staffRepository.save(staff);
     }
 
