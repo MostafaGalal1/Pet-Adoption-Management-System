@@ -32,12 +32,19 @@ public class Shelter {
     @JoinColumn(name = "managerId")
     private Staff manager;
 
+<<<<<<< Updated upstream
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "shelter")
     @ToString.Exclude
     private List<Staff> staff;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "shelter")
     @ToString.Exclude
+=======
+    @OneToMany
+    private List<Staff> staff;
+
+    @OneToMany
+>>>>>>> Stashed changes
     private List<Pet> pets;
 
     public void addStaff(Staff staff) {

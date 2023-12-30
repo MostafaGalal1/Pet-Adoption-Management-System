@@ -26,8 +26,14 @@ public class AdoptionApplicationController {
 
     @GetMapping("/getAll")
     public ResponseEntity<List<AdoptionApplicationDto>> getAllAdoptionApplications() {
+<<<<<<< Updated upstream
         List<AdoptionApplicationDto> applicationDtos = adoptionApplicationService.getAll();
         return ResponseEntity.ok(applicationDtos);
+=======
+        System.out.println("jjj");
+        List<AdoptionApplicationDto> list = adoptionApplicationService.getAll();
+        return ResponseEntity.ok(list);
+>>>>>>> Stashed changes
     }
 
     @PostMapping("/add")

@@ -30,7 +30,15 @@ public class AdoptionApplicationService {
     }
 
     public List<AdoptionApplicationDto> getAll() {
+<<<<<<< Updated upstream:src/main/java/com/adoptapet/adoptapet/Services/EntityServices/AdoptionApplicationService.java
         return adoptionApplicationRepository.findAll().stream().map(adoptionApplicationMapper::toDto).collect(Collectors.toList());
+=======
+        List<AdoptionApplication> adoptionApplications = adoptionApplicationRepository.findAll();
+        System.out.println(adoptionApplications.get(0).getPet().getBreed());
+//        return adoptionApplicationMapper.toDtoList(adoptionApplications);
+        System.out.println(adoptionApplicationMapper.toDto(adoptionApplications.get(0)));
+        return null;
+>>>>>>> Stashed changes:src/main/java/com/adoptapet/adoptapet/Services/AdoptionApplicationService.java
     }
 
     public void add(AdoptionApplicationDto applicationDto) {
