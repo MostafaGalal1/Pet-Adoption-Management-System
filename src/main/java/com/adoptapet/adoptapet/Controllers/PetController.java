@@ -5,6 +5,7 @@ import com.adoptapet.adoptapet.Services.EntityServices.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -28,9 +29,12 @@ public class PetController {
     }
 
     @PostMapping
-    public ResponseEntity<String> addPet(@RequestBody PetDto petDto) {
-        petService.addPet(petDto);
-        return ResponseEntity.ok("Pet added successfully");
+    public ResponseEntity<Integer> addPet(@RequestBody PetDto petDto) {
+        return ResponseEntity.ok(petService.addPet(petDto));
+    }
+    @GetMapping("/shelter/{shelterId}")
+    public ResponseEntity<List<PetDto>> getPetsInShelter(@PathVariable int shelterId) {
+        return ResponseEntity.ok(petService.getAllPets(shelterId));
     }
 
     @PutMapping
