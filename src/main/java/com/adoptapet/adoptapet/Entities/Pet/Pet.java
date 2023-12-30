@@ -4,6 +4,8 @@ import com.adoptapet.adoptapet.Entities.Document.Document;
 import com.adoptapet.adoptapet.Entities.Gender;
 import com.adoptapet.adoptapet.Entities.Image.Image;
 import com.adoptapet.adoptapet.Entities.Shelter;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -62,16 +64,17 @@ public class Pet {
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "shelterId")
+    @JsonManagedReference
     private Shelter shelter;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "petId")
-    @ToString.Exclude
+    @JsonBackReference
     private List<Document> documents;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "petId")
-    @ToString.Exclude
+    @JsonBackReference
     private List<Image> images;
 
     void addDocument(Document document) {
