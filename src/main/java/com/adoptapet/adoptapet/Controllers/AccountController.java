@@ -33,7 +33,6 @@ public class AccountController {
     public ResponseEntity<AccountDto> getAccount(@PathVariable String accountEmail) {
         return ResponseEntity.ok(accountService.getAccount(accountEmail));
     }
-
     @PostMapping
     public ResponseEntity<String> addAccount(@RequestBody AccountDto accountDto) {
         accountService.addAccount(accountDto);

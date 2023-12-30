@@ -4,14 +4,11 @@ import com.adoptapet.adoptapet.Dtos.AccountDto;
 import com.adoptapet.adoptapet.Dtos.SignUpDto;
 import com.adoptapet.adoptapet.Entities.Account.Account;
 import com.adoptapet.adoptapet.Entities.Account.Role;
-import com.adoptapet.adoptapet.Entities.Staff.Staff;
 import com.adoptapet.adoptapet.Exceptions.AccountExceptions.AccountAlreadyExistsException;
 import com.adoptapet.adoptapet.Exceptions.AccountExceptions.AccountInvalidPasswordException;
 import com.adoptapet.adoptapet.Exceptions.AccountExceptions.AccountNotFoundException;
 import com.adoptapet.adoptapet.Exceptions.AccountExceptions.AccountRegisterAsAdminForbiddenException;
 import com.adoptapet.adoptapet.Mappers.AccountMapper;
-import com.adoptapet.adoptapet.Mappers.AdopterMapper;
-import com.adoptapet.adoptapet.Mappers.StaffMapper;
 import com.adoptapet.adoptapet.Repositories.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -50,10 +47,9 @@ public class AccountService {
     }
 
     public void addAccount(AccountDto accountDto) {
-        if (accountRepository.findByEmail(accountDto.getEmail()).isPresent())
+        if (accountRepository.findById(accountDto.getId()).isPresent())
             throw new AccountAlreadyExistsException();
         Account account = accountMapper.toEntity(accountDto);
-        System.out.println(account);
         accountRepository.save(account);
     }
 
@@ -89,6 +85,7 @@ public class AccountService {
         Account account = accountMapper.toEntity(accountDto);
         if (accountRepository.findByEmail(account.getEmail()).isEmpty())
             throw new AccountNotFoundException();
+        System.out.println("llllllllllllllllllllllllllllllllllllllll");
         Account existingAccount = accountRepository.findByEmail(account.getEmail()).get();
         if (!encoder.matches(account.getPassword(),existingAccount.getPassword()))
             throw new AccountInvalidPasswordException();

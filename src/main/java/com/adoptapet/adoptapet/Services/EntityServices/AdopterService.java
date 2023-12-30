@@ -36,16 +36,21 @@ public class AdopterService {
         return adopterMapper.toDto(adopter);
     }
 
-    public void add(AdopterDto adopterDto) {
-        if (adopterRepository.findById(adopterDto.getId()).isPresent())
-            throw new AdopterAlreadyExistsException();
-        Adopter adopter = adopterMapper.toEntity(adopterDto);
-        adopterRepository.save(adopter);
+    public Adopter getAdopterEntity(int adopterId) {
+        if (adopterRepository.findById(adopterId).isEmpty())
+            throw new AdopterNotFoundException();
+        return adopterRepository.findById(adopterId).get();
     }
 
     public void add(SignUpDto signUpDto) {
         Adopter adopter = adopterMapper.toEntity(signUpDto);
         adopter.setId(adopter.getAccount().getId());
+        adopterRepository.save(adopter);
+    }
+    public void add(AdopterDto adopterDto) {
+        if (adopterRepository.findById(adopterDto.getId()).isPresent())
+            throw new AdopterAlreadyExistsException();
+        Adopter adopter = adopterMapper.toEntity(adopterDto);
         adopterRepository.save(adopter);
     }
 

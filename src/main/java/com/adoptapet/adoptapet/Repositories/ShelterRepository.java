@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface ShelterRepository extends JpaRepository<Shelter, Integer> {
 
     Shelter getShelterByLocation(String location);
+
+    Shelter getShelterByLocationAndId(String location, int id);
 }

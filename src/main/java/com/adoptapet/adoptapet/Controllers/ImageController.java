@@ -24,6 +24,8 @@ public class ImageController {
     // Let's agree on convention that if imageId is 0, then this is the profile image for carousel
     @GetMapping("/{petId}/{imageId}")
     public ResponseEntity<ImageDto> getImage(@PathVariable int petId, @PathVariable int imageId) {
+        System.out.println(petId);
+        System.out.println(imageId);
         return ResponseEntity.ok(imageService.getImage(petId, imageId));
     }
 

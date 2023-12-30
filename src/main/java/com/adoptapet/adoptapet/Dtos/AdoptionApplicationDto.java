@@ -17,4 +17,5 @@ public class AdoptionApplicationDto implements Serializable {
     Status status;
     PetDto pet;
     AdopterDto adopter;
+    int shelterId;
 }

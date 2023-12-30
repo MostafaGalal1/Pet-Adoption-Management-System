@@ -18,32 +18,32 @@ public class PetController {
         this.petService = petService;
     }
 
-    @GetMapping()
+    @GetMapping("/getAll")
     public ResponseEntity<List<PetDto>> getAllPets() {
         return ResponseEntity.ok(petService.getAllPets());
     }
 
-    @GetMapping("/{petId}")
-    public ResponseEntity<PetDto> getPet(@PathVariable int petId) {
-        return ResponseEntity.ok(petService.getPet(petId));
-    }
-
-    @PostMapping
-    public ResponseEntity<Integer> addPet(@RequestBody PetDto petDto) {
-        return ResponseEntity.ok(petService.addPet(petDto));
-    }
     @GetMapping("/shelter/{shelterId}")
     public ResponseEntity<List<PetDto>> getPetsInShelter(@PathVariable int shelterId) {
         return ResponseEntity.ok(petService.getAllPets(shelterId));
     }
 
-    @PutMapping
+    @GetMapping("/get/{petId}")
+    public ResponseEntity<PetDto> getPet(@PathVariable int petId) {
+        return ResponseEntity.ok(petService.getPet(petId));
+    }
+    @PostMapping("/add")
+    public ResponseEntity<Integer> addPet(@RequestBody PetDto petDto) {
+        return ResponseEntity.ok(petService.addPet(petDto));
+    }
+
+    @PutMapping("/edit")
     public ResponseEntity<String> updatePet(@RequestBody PetDto petDto) {
         petService.updatePet(petDto);
         return ResponseEntity.ok("Pet updated successfully");
     }
 
-    @DeleteMapping("/{petId}")
+    @DeleteMapping("/delete/{petId}")
     public ResponseEntity<String> deletePet(@PathVariable int petId) {
         petService.deletePet(petId);
         return ResponseEntity.ok("Pet deleted successfully");
@@ -56,6 +56,7 @@ public class PetController {
 
     @GetMapping("/filter/{criteria}/{value}/{shelterId}")
     public ResponseEntity<List<PetDto>> filter(@PathVariable String criteria, @PathVariable String value, @PathVariable int shelterId) {
+        System.out.println(criteria);
         return ResponseEntity.ok(petService.filterPets(criteria, value, shelterId));
     }
 

@@ -26,4 +26,7 @@ public class AdoptionApplication {
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "adopterId")
     private Adopter adopter;
+
+    @Column(name = "shelterId")
+    private int shelterId;
 }

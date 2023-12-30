@@ -32,7 +32,6 @@ public class Shelter {
     @JoinColumn(name = "managerId")
     private Staff manager;
 
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "shelter")
     @ToString.Exclude
     private List<Staff> staff;
