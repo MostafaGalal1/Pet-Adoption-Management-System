@@ -26,14 +26,15 @@ public class AdoptionApplicationController {
 
     @GetMapping("/getAll")
     public ResponseEntity<List<AdoptionApplicationDto>> getAllAdoptionApplications() {
-<<<<<<< Updated upstream
         List<AdoptionApplicationDto> applicationDtos = adoptionApplicationService.getAll();
         return ResponseEntity.ok(applicationDtos);
-=======
-        System.out.println("jjj");
-        List<AdoptionApplicationDto> list = adoptionApplicationService.getAll();
-        return ResponseEntity.ok(list);
->>>>>>> Stashed changes
+    }
+
+    @GetMapping("/getAll/{shelterId}")
+    public ResponseEntity<List<AdoptionApplicationDto>> getAllAdoptionApplications(@PathVariable int shelterId) {
+        System.out.println(shelterId);
+        List<AdoptionApplicationDto> applicationDtos = adoptionApplicationService.getAll(shelterId);
+        return ResponseEntity.ok(applicationDtos);
     }
 
     @PostMapping("/add")
@@ -42,22 +43,22 @@ public class AdoptionApplicationController {
         return ResponseEntity.ok("Adoption application added");
     }
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<String> deleteAdoptionApplication(@RequestBody AdoptionApplicationId applicationId) {
-        adoptionApplicationService.delete(applicationId);
+    @DeleteMapping("/delete/{petId}/{adopterId}")
+    public ResponseEntity<String> deleteAdoptionApplication(@PathVariable int petId, @PathVariable int adopterId) {
+        adoptionApplicationService.delete(petId, adopterId);
         return ResponseEntity.ok("Adoption application deleted");
     }
 
-    @PutMapping("/accept")
-    public ResponseEntity<?> acceptApplication(@RequestBody AdoptionApplicationId applicationId) {
-        adoptionApplicationService.updateStatus(applicationId, APPROVED);
+    @PutMapping("/accept/{petId}/{adopterId}")
+    public ResponseEntity<?> acceptApplication(@PathVariable int petId, @PathVariable int adopterId) {
+        adoptionApplicationService.updateStatus(petId, adopterId, APPROVED);
         return ResponseEntity.ok("Adoption Application Accepted");
     }
 
-    @PutMapping("/decline")
-    public ResponseEntity<?> declineApplication(@RequestBody AdoptionApplicationId applicationId) {
-        adoptionApplicationService.updateStatus(applicationId, REJECTED);
+    @PutMapping("/decline/{petId}/{adopterId}")
+    public ResponseEntity<?> declineApplication(@PathVariable int petId, @PathVariable int adopterId) {
+        adoptionApplicationService.updateStatus(petId, adopterId, REJECTED);
         return ResponseEntity.ok("Adoption Application Rejected");
     }
-    
+
 }

@@ -1,6 +1,7 @@
 package com.adoptapet.adoptapet.Services.EntityServices;
 
 import com.adoptapet.adoptapet.Dtos.AdopterDto;
+import com.adoptapet.adoptapet.Dtos.SignUpDto;
 import com.adoptapet.adoptapet.Entities.Adopter;
 import com.adoptapet.adoptapet.Exceptions.AdopterExceptions.AdopterAlreadyExistsException;
 import com.adoptapet.adoptapet.Exceptions.AdopterExceptions.AdopterNotFoundException;
@@ -39,6 +40,12 @@ public class AdopterService {
         if (adopterRepository.findById(adopterDto.getId()).isPresent())
             throw new AdopterAlreadyExistsException();
         Adopter adopter = adopterMapper.toEntity(adopterDto);
+        adopterRepository.save(adopter);
+    }
+
+    public void add(SignUpDto signUpDto) {
+        Adopter adopter = adopterMapper.toEntity(signUpDto);
+        adopter.setId(adopter.getAccount().getId());
         adopterRepository.save(adopter);
     }
 

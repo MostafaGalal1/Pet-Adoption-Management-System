@@ -9,6 +9,10 @@ import com.adoptapet.adoptapet.Mappers.ImageMapper;
 import com.adoptapet.adoptapet.Repositories.AdoptionApplicationRepository;
 import com.adoptapet.adoptapet.Repositories.ImageRepository;
 import jakarta.persistence.EntityNotFoundException;
+import com.adoptapet.adoptapet.Entities.AdoptionApplication.AdoptionApplication;
+import com.adoptapet.adoptapet.Entities.AdoptionApplication.AdoptionApplicationId;
+import com.adoptapet.adoptapet.Mappers.AdoptionApplicationMapper;
+import com.adoptapet.adoptapet.Repositories.AdoptionApplicationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -30,16 +34,9 @@ public class AdoptionApplicationService {
     }
 
     public List<AdoptionApplicationDto> getAll() {
-<<<<<<< Updated upstream:src/main/java/com/adoptapet/adoptapet/Services/EntityServices/AdoptionApplicationService.java
         return adoptionApplicationRepository.findAll().stream().map(adoptionApplicationMapper::toDto).collect(Collectors.toList());
-=======
-        List<AdoptionApplication> adoptionApplications = adoptionApplicationRepository.findAll();
-        System.out.println(adoptionApplications.get(0).getPet().getBreed());
-//        return adoptionApplicationMapper.toDtoList(adoptionApplications);
-        System.out.println(adoptionApplicationMapper.toDto(adoptionApplications.get(0)));
-        return null;
->>>>>>> Stashed changes:src/main/java/com/adoptapet/adoptapet/Services/AdoptionApplicationService.java
     }
+
 
     public void add(AdoptionApplicationDto applicationDto) {
         AdoptionApplication adoptionApplication = adoptionApplicationMapper.toEntity(applicationDto);

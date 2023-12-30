@@ -5,6 +5,7 @@ import com.adoptapet.adoptapet.Services.EntityServices.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -28,9 +29,12 @@ public class PetController {
     }
 
     @PostMapping
-    public ResponseEntity<String> addPet(@RequestBody PetDto petDto) {
-        petService.addPet(petDto);
-        return ResponseEntity.ok("Pet added successfully");
+    public ResponseEntity<Integer> addPet(@RequestBody PetDto petDto) {
+        return ResponseEntity.ok(petService.addPet(petDto));
+    }
+    @GetMapping("/shelter/{shelterId}")
+    public ResponseEntity<List<PetDto>> getPetsInShelter(@PathVariable int shelterId) {
+        return ResponseEntity.ok(petService.getAllPets(shelterId));
     }
 
     @PutMapping
@@ -43,5 +47,20 @@ public class PetController {
     public ResponseEntity<String> deletePet(@PathVariable int petId) {
         petService.deletePet(petId);
         return ResponseEntity.ok("Pet deleted successfully");
+    }
+
+    @GetMapping("/filter/{criteria}/{value}")
+    public ResponseEntity<List<PetDto>> filter(@PathVariable String criteria, @PathVariable String value) {
+        return ResponseEntity.ok(petService.filterPets(criteria, value));
+    }
+
+    @GetMapping("/filter/{criteria}/{value}/{shelterId}")
+    public ResponseEntity<List<PetDto>> filter(@PathVariable String criteria, @PathVariable String value, @PathVariable int shelterId) {
+        return ResponseEntity.ok(petService.filterPets(criteria, value, shelterId));
+    }
+
+    @GetMapping("/criteria/values/{criteria}")
+    public ResponseEntity<List<?>> getCriteriaValues(@PathVariable String criteria) {
+        return ResponseEntity.ok(petService.getValues(criteria));
     }
 }

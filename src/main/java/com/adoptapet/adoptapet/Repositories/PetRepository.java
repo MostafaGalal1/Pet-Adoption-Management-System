@@ -16,7 +16,7 @@ public interface PetRepository extends JpaRepository<Pet, Integer>, JpaSpecifica
     List<Pet> getPetsByAgeAndAdopted(int age, boolean adopted);
 
     List<Pet> getPetsBySpeciesAndAdopted(String species, boolean adopted);
-
+    List<Pet> findAllByShelterId(int shelterId);
     List<Pet> getPetsByShelterAndAdopted(Shelter shelter, boolean adopted);
 
     List<Pet> getPetsBy();

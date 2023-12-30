@@ -44,11 +44,22 @@ public class PetService {
         return petMapper.toDto(pet);
     }
 
-    public void addPet(PetDto petDto) {
+    
+    public List<PetDto> getAllPets(int shelterId) {
+        List<Pet> pets = petRepository.findAllByShelterId(shelterId);
+        return petMapper.toDtoList(pets);
+    }
+
+    public int addPet(PetDto petDto) {
         if (petRepository.findById(petDto.getId()).isPresent())
             throw new PetAlreadyExistsException();
         Pet pet = petMapper.toEntity(petDto);
+        if (shelterRepository.findById(petDto.getShelter().getId()).isPresent()) {
+            Shelter shelter = shelterRepository.findById(petDto.getShelter().getId()).get();
+            pet.setShelter(shelter);
+        }
         petRepository.save(pet);
+        return pet.getId();
     }
 
     public void updatePet(PetDto petDto) {
